@@ -1,0 +1,71 @@
+* {
+    font-family: 'Montserrat', sans-serif !important;
+}
+
+.navbar-landing{
+    padding-bottom: 5px !important;
+    background-color: #fff;
+}
+
+.carrossel{
+    margin-top: 72px;
+}
+
+.btn-acessar{
+    background-color: #ffdd00;
+    color: #000 !important;
+}
+
+.btn-inscricao{
+    background-color: #ffdd00;
+    color: #000 !important;
+}
+
+.btn-inscricao:hover{
+    text-decoration: underline !important;
+    background-color: #ffdd00;
+    color: #000 !important;
+}
+
+.btn-acessar:hover{
+    text-decoration: underline !important;
+    background-color: #ffdd00;
+    color: #000 !important;
+}
+
+.hero-section {
+    background-color: #f8f9fa;
+    padding: 50px 0;
+}
+
+/* .hero-section .container div{
+    background-color: #fff;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-radius: 20px;
+} */
+
+.hero-section .dv-textos h4{
+    line-height: 1.5;
+    color: #000;
+}
+
+.hero-section .dv-textos span{
+    background-color: #ffdd00;
+    color: #000;
+}
+
+.hero-section .btn-acessar{
+    background-color: #dedede;
+    color: #000 !important;
+    border: solid 1px #dedede;
+}
+
+.hero-section .btn-inscricao{
+    background-color: #000;
+    color: #ffdd00 !important;
+}
+
+.custom-footer {
+    background-color: #000;
+}
