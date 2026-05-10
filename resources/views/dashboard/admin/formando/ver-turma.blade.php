@@ -76,23 +76,6 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <!-- end col -->
-                                        <div class="col-sm-4 mt-2">
-                                            <div class="p-2 border border-dashed rounded bg-marketplace">
-                                                <div class="d-flex align-items-center">
-                                                    <div class="avatar-sm me-2">
-                                                        <div
-                                                            class="avatar-title rounded bg-transparent text-primary fs-24">
-                                                            <i class=" ri-archive-line"></i>
-                                                        </div>
-                                                    </div>
-                                                    <div class="flex-grow-1">
-                                                        <p class="text-muted mb-1">Ano:</p>
-                                                        <h5 class="mb-0 bol">{{ $turma->getFormacao->getAno->descricao }}</h5>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
                                         <div class="col-sm-4 mt-2">
                                             <div class="p-2 border border-dashed rounded bg-marketplace">
                                                 <div class="d-flex align-items-center">

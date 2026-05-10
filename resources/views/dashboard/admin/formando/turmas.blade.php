@@ -69,8 +69,7 @@
                                         <i class="ri-add-line"></i>
                                     </div>
                                 </div> -->
-                    <h3>{{ $item->getFormacao->getAno->descricao }}</h3>
-                    <h4>{{ $item->getFormacao->nome }}</h4>
+                    <h5>{{ $item->getFormacao->nome }}</h5>
                     <h4 class="card-title">{{ $item->descricao }}</h4>
                     <h4 class="card-title">Capacidade: {{ $item->capacidade }}</h4>
                     <h4 class="card-title">Nº de Inscritos: {{ $this->inscritos($item->id) }}</h4>

@@ -86,7 +86,7 @@ class LoginController extends Controller
             ])->first();
 
             if ($user) {
-                if (($user->permission_id == 5 && $user->id >= 686) || ($user->permission_id != 5)) {
+                if ($user->permission_id <= 8) {
                     Auth::login($user);
                     // regista actividade do sistema
                     ActividadesistemaController::inserir($user->id, 'Acessou o sistema', 'Usuário', 'conta', null);

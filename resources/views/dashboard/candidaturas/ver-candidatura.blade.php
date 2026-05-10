@@ -1,7 +1,6 @@
 <div>
 
     <style>
-
         .hero-page .bg-soft-primary {
             border-radius: 20px;
             padding: 10px;
@@ -11,7 +10,7 @@
             border-radius: 20px;
         }
 
-        .notas-finais h5{
+        .notas-finais h5 {
             text-align: center;
             font-size: 1.4rem;
             text-decoration: underline;
@@ -19,7 +18,7 @@
             margin-bottom: 5px;
         }
 
-        .observacao{
+        .observacao {
             padding: 10px;
             font-size: 14px;
             background-color: #fafafaff;
@@ -28,7 +27,7 @@
             border-radius: 5px;
         }
 
-        .notas-finais .nota-modulo{
+        .notas-finais .nota-modulo {
             border: solid 1px #c0c0c0ff;
             padding: 10px;
             background-color: #407b9137;
@@ -41,7 +40,7 @@
             justify-content: space-between;
         }
 
-         .notas-finais .media-final{
+        .notas-finais .media-final {
             border: solid 1px #000;
             padding: 10px;
             background-color: #efefefff;
@@ -51,7 +50,7 @@
             color: #000;
         }
 
-        .notas-finais .nota-modulo span{
+        .notas-finais .nota-modulo span {
             display: inline-block;
             float: right;
             background-color: #fff;
@@ -63,7 +62,7 @@
             text-align: center;
         }
 
-        .notas-finais .media-final .negativa{
+        .notas-finais .media-final .negativa {
             display: inline-block;
             float: right;
             background-color: #fff;
@@ -73,7 +72,7 @@
             padding: 3px;
         }
 
-        .notas-finais .media-final .positiva{
+        .notas-finais .media-final .positiva {
             display: inline-block;
             float: right;
             background-color: #fff;
@@ -82,9 +81,6 @@
             border-radius: 5px;
             padding: 3px;
         }
-
-
-
     </style>
 
     <div class="row hero-page">
@@ -116,25 +112,16 @@
                                             <h4 class="fw-bold">{{ $candidatura->getPessoa->nome }}</h4>
                                             <h4 class="fw-bold">CÓDIGO: {{ $candidatura->codigo }}</h4>
                                             <div class="hstack gap-3 flex-wrap">
-                                                <div><i class="ri-building-line align-bottom me-1"></i>
+                                                <div>
                                                     {{ $candidatura->getPessoa->email }}
                                                 </div>
-                                                <div class="vr"></div>
-                                                <div>Data de inscrição: <span
-                                                        class="fw-medium">{{ $candidatura->created_at }}</span></div>
-                                                <div class="vr"></div>
-                                                <div>Data de actualização: <span
-                                                        class="fw-medium">{{ $candidatura->updated_at }}</span></div>
                                                 <div class="vr"></div>
                                                 <div class="badge rounded-pill bg-info fs-12">
                                                     {{ $candidatura->getFormacao->nome }}
                                                 </div>
-                                                <!-- @if (Auth::user()->permission_id == 5)
-                                                <a href="" class="btn btn-primary rounded-pill">Actualizar
-                                                    minha
-                                                    candidatura</a>
-                                                @endif -->
-
+                                                <div class="vr"></div>
+                                                <div><span
+                                                        class="fw-medium">{{ $candidatura->getTurma->descricao  }}</span></div>
                                             </div>
                                         </div>
                                     </div>
@@ -156,14 +143,14 @@
                                     Documentos
                                 </a>
                             </li>
-                           
+
                             <li class="nav-item">
-                                    <a wire:ignore.self class="nav-link fw-bold" data-bs-toggle="tab"
-                                        href="#project-notas-finais" role="tab">
-                                        Notas Finais
-                                    </a>
-                                </li>
-                             @if(Auth::user()->permission_id == 5)
+                                <a wire:ignore.self class="nav-link fw-bold" data-bs-toggle="tab"
+                                    href="#project-notas-finais" role="tab">
+                                    Notas Finais
+                                </a>
+                            </li>
+                            @if(Auth::user()->permission_id == 5)
                                 <li class="nav-item">
                                     <a wire:ignore.self class="nav-link fw-bold" data-bs-toggle="tab"
                                         href="#project-declaracao" role="tab">
@@ -283,73 +270,87 @@
                                                     </div>
                                                     <div class="row">
                                                         <div class="col-xxl-12 col-lg-12">
-                                                            <div class="text-muted">
+                                                            <div class="pt-3 border-top border-top-dashed mt-4">
+                                                                <div class="row">
+                                                                    <div class="col-lg-3 col-sm-6">
+                                                                       
+                                                                            <p
+                                                                                class="mb-2 text-uppercase fw-medium fs-13">
+                                                                                Data de inscrição:</p>
+                                                                            <h5 class="fs-15 mb-0">
+                                                                                {{ $candidatura->created_at }}
+                                                                            </h5>
+                                                                    
+                                                                    </div>
+                                                                    <div class="col-lg-3 col-sm-6">
+                                                                       
+                                                                            <p
+                                                                                class="mb-2 text-uppercase fw-medium fs-13">
+                                                                                Data de actualização:</p>
+                                                                            <h5 class="fs-15 mb-0">
+                                                                                {{ $candidatura->updated_at }}
+                                                                            </h5>
+                                                                       
+                                                                    </div>
+                                                                    <div class="col-lg-3 col-sm-6">
+                                                                        
+                                                                            <p
+                                                                                class="mb-2 text-uppercase fw-medium fs-13">
+                                                                                Estado da candidatura:</p>
+                                                                            @if ($candidatura->estado == 'suspenso')
+                                                                                <div class="badge bg-danger fs-12">
+                                                                                    Suspensa</div>
+                                                                            @endif
 
-                                                                <div class="pt-3 border-top border-top-dashed mt-4">
-                                                                    <div class="row">
+                                                                            @if ($candidatura->estado == 'pendente')
+                                                                                <div class="badge bg-warning fs-12">
+                                                                                    Pendente</div>
+                                                                            @endif
 
-                                                                        <div class="col-lg-4 col-sm-6">
-                                                                            <div>
-                                                                                <p
-                                                                                    class="mb-2 text-uppercase fw-medium fs-13">
-                                                                                    Data de inscrição:</p>
-                                                                                <h5 class="fs-15 mb-0">
-                                                                                    {{ $candidatura->created_at }}
-                                                                                </h5>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-lg-4 col-sm-6">
-                                                                            <div>
-                                                                                <p
-                                                                                    class="mb-2 text-uppercase fw-medium fs-13">
-                                                                                    Data de actualização:</p>
-                                                                                <h5 class="fs-15 mb-0">
-                                                                                    {{ $candidatura->updated_at }}
-                                                                                </h5>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-lg-4 col-sm-6">
-                                                                            <div>
-                                                                                <p
-                                                                                    class="mb-2 text-uppercase fw-medium fs-13">
-                                                                                    Estado da candidatura:</p>
-                                                                                @if ($candidatura->estado == 'suspenso')
-                                                                                    <div class="badge bg-danger fs-12">
-                                                                                        Suspensa</div>
-                                                                                @endif
+                                                                            @if ($candidatura->estado == 'aprovado')
+                                                                                <div class="badge bg-success fs-12">
+                                                                                    Aprovada</div>
+                                                                            @endif
 
-                                                                                @if ($candidatura->estado == 'pendente')
-                                                                                    <div class="badge bg-warning fs-12">
-                                                                                        Pendente</div>
-                                                                                @endif
+                                                                       
+                                                                    </div>
+                                                                    <div class="col-lg-3 col-sm-6">
+                                                                        
+                                                                            <p
+                                                                                class="mb-2 text-uppercase fw-medium fs-13">
+                                                                                Pagamento:</p>
+                                                                            @if ($candidatura->pago == 'não pago')
+                                                                                <div class="badge bg-danger fs-12">
+                                                                                    Não Pago</div>
+                                                                            @endif
 
-                                                                                @if ($candidatura->estado == 'aprovado')
-                                                                                    <div class="badge bg-success fs-12">
-                                                                                        Aprovada</div>
-                                                                                @endif
+                                                                            @if ($candidatura->pago == 'pago')
+                                                                                <div class="badge bg-success fs-12">
+                                                                                    Pago</div>
+                                                                            @endif
 
-                                                                            </div>
-                                                                        </div>
+                                                                       
                                                                     </div>
                                                                 </div>
-
-                                                                @if ($candidatura->estado == 'suspenso')
-                                                                    <div class="pt-3 border-top border-top-dashed mt-4">
-                                                                        <h6 class="mb-3 fw-bold text-uppercase">Motivo da
-                                                                            suspensão</h6>
-                                                                        <div class="row g-3">
-                                                                            <div class="col-xxl-12 col-lg-12">
-                                                                                <h5 class="alert alert-warning">
-                                                                                    {{ $candidatura->motivo_suspensao }}
-                                                                                </h5>
-                                                                            </div>
-                                                                        </div>
-                                                                        <!-- end row -->
-                                                                    </div>
-                                                                @endif
-
-
                                                             </div>
+
+                                                            @if ($candidatura->estado == 'suspenso')
+                                                                <div class="pt-3 border-top border-top-dashed mt-4">
+                                                                    <h6 class="mb-3 fw-bold text-uppercase">Motivo da
+                                                                        suspensão</h6>
+                                                                    <div class="row g-3">
+                                                                        <div class="col-xxl-12 col-lg-12">
+                                                                            <h5 class="alert alert-warning">
+                                                                                {{ $candidatura->motivo_suspensao }}
+                                                                            </h5>
+                                                                        </div>
+                                                                    </div>
+                                                                    <!-- end row -->
+                                                                </div>
+                                                            @endif
+
+
+
                                                         </div>
                                                     </div>
 
@@ -1266,49 +1267,66 @@
                     <!-- end tab pane -->
                 </div>
 
-                
+
                 <div wire:ignore.self class="tab-pane fade" id="project-notas-finais" role="tabpanel">
-                        <div class="card" style="min-height: 600px;">
-                            <div class="card-body" style="min-height: 500px;">
-                                <div class="d-flex align-items-center mb-4">
-                                   
-                                </div>
+                    <div class="card" style="min-height: 600px;">
+                        <div class="card-body" style="min-height: 500px;">
+                            <div class="d-flex align-items-center mb-4">
 
-                                <div class="row mt-3">
-                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                       
-                                        @if($aluno != null && count($avaliacao_aluno) > 0)
-                                            <div class="notas-finais">
-                                                <h5 class="mb-5">Notas Finais do Formando</h5>
+                            </div>
 
-                                                <p class="observacao">
-                                                    As notas apresentadas aqui correspondem as notas finais de cada módulo ou disciplina.
-                                                    Caso a nota final seja diferente da nota obtida na prova online realizada na plataforma do CEF-OAA,
-                                                    significa que o Professor/Formador, além da prova, usou um determinado critério para obtenção da nota final.
-                                                </p>
-                                                <p class="observacao">
-                                                    Os módulos/disciplinas que aparecem nesta secção e que não constam na página das Provas Online, são aquelas cujas provas não foram realizadas na plataforma do CEF-OAA.
-                                                </p>
+                            <div class="row mt-3">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 
-                                                <h6 class="nota-modulo">Prática Processual Penal <span>{{ isset($notas_finais[1]) ? $notas_finais[1] : 'Sem Nota' }}</span> </h6>
-                                                <h6 class="nota-modulo">Prática Processual Civil <span>{{ isset($notas_finais[2]) ? $notas_finais[2] : 'Sem Nota' }}</span> </h6>
-                                                <h6 class="nota-modulo">Ética e Deontologia Profissional <span>{{ isset($notas_finais[3]) ? $notas_finais[3] : 'Sem Nota' }}</span> </h6>
-                                                <h6 class="nota-modulo">Práticas Jurídicas Multidisciplinares e Notariado <span>{{ isset($notas_finais[4]) ? $notas_finais[4] : 'Sem Nota' }}</span> </h6>
-                                                <h6 class="nota-modulo">Laboral <span>{{ isset($notas_finais[5]) ? $notas_finais[5] : 'Sem Nota' }}</span> </h6>
-                                                <h6 class="media-final">Média Final do Formando <span class="{{ $nota_final >= 10 ? 'positiva' : 'negativa' }}">{{ number_format($nota_final, 2, ',', '.') }}</span> </h6>
+                                    @if($aluno != null && count($avaliacao_aluno) > 0)
+                                        <div class="notas-finais">
+                                            <h5 class="mb-5">Notas Finais do Formando</h5>
 
-                                            </div>
-                                        @else
-                                            <div class="alert alert-warning text-center">
-                                                Ainda não existem informações sobre as notas finais do Formando.
-                                            </div>
-                                        @endif
-                                    </div>
+                                            <p class="observacao">
+                                                As notas apresentadas aqui correspondem as notas finais de cada módulo ou
+                                                disciplina.
+                                                Caso a nota final seja diferente da nota obtida na prova online realizada na
+                                                plataforma do CEF-OAA,
+                                                significa que o Professor/Formador, além da prova, usou um determinado
+                                                critério para obtenção da nota final.
+                                            </p>
+                                            <p class="observacao">
+                                                Os módulos/disciplinas que aparecem nesta secção e que não constam na página
+                                                das Provas Online, são aquelas cujas provas não foram realizadas na
+                                                plataforma do CEF-OAA.
+                                            </p>
+
+                                            <h6 class="nota-modulo">Prática Processual Penal
+                                                <span>{{ isset($notas_finais[1]) ? $notas_finais[1] : 'Sem Nota' }}</span>
+                                            </h6>
+                                            <h6 class="nota-modulo">Prática Processual Civil
+                                                <span>{{ isset($notas_finais[2]) ? $notas_finais[2] : 'Sem Nota' }}</span>
+                                            </h6>
+                                            <h6 class="nota-modulo">Ética e Deontologia Profissional
+                                                <span>{{ isset($notas_finais[3]) ? $notas_finais[3] : 'Sem Nota' }}</span>
+                                            </h6>
+                                            <h6 class="nota-modulo">Práticas Jurídicas Multidisciplinares e Notariado
+                                                <span>{{ isset($notas_finais[4]) ? $notas_finais[4] : 'Sem Nota' }}</span>
+                                            </h6>
+                                            <h6 class="nota-modulo">Laboral
+                                                <span>{{ isset($notas_finais[5]) ? $notas_finais[5] : 'Sem Nota' }}</span>
+                                            </h6>
+                                            <h6 class="media-final">Média Final do Formando <span
+                                                    class="{{ $nota_final >= 10 ? 'positiva' : 'negativa' }}">{{ number_format($nota_final, 2, ',', '.') }}</span>
+                                            </h6>
+
+                                        </div>
+                                    @else
+                                        <div class="alert alert-warning text-center">
+                                            Ainda não existem informações sobre as notas finais do Formando.
+                                        </div>
+                                    @endif
                                 </div>
                             </div>
                         </div>
                     </div>
-                    @if(Auth::user()->permission_id == 5)
+                </div>
+                @if(Auth::user()->permission_id == 5)
                     <div wire:ignore.self class="tab-pane fade" id="project-declaracao" role="tabpanel">
                         <div class="card" style="height: 600px;">
                             <div class="card-body" style="height: 500px;">

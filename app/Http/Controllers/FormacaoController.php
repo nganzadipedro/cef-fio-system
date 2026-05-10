@@ -534,4 +534,194 @@ class FormacaoController extends Controller
 
         return response()->json(['status' => 'sucesso', 'mensagem' => 'Pergunta cadastrada com sucesso!']);
     }
+
+    public function distribuir_alunos()
+    {
+
+        // pega todos formandos da turma A (Mediateca de Luanda)
+        $formandos = Candidaturaformacao::where('turma_id', 14)
+            ->where('pago', 'pago')
+            ->whereNotNull('aluno_id')
+            ->orderBy('id', 'asc')
+            ->get();
+
+        // dd($formandos);
+
+        // ids de alunos para incluir na Mediateca de Luanda
+        $vetor_excecao = [2349, 2208, 2514, 2344, 2453, 2255, 2535];
+
+        $contador = 1;
+
+        // inserir a lista de exceção na turma da Mediateca
+        foreach ($vetor_excecao as $id_aluno) {
+
+            $aluno_formacao = Alunoformacao::where('aluno_id', $id_aluno)->first();
+            $candidatura = Candidaturaformacao::where('aluno_id', $id_aluno)->first();
+
+            $aluno_formacao->turma_id = 15;
+            $aluno_formacao->formacao_id = 5;
+            $aluno_formacao->save();
+            $candidatura->turma_id = 15;
+            $candidatura->formacao_id = 5;
+            $candidatura->year_id = 4;
+            $candidatura->save();
+
+            echo $contador . ' - ' . $aluno_formacao->getAluno->getPessoa->nome . ' Turma A (Mediateca de Luanda) <br>';
+            $contador++;
+        }
+
+
+        $formandos = Candidaturaformacao::where('turma_id', 14)
+            ->where('pago', 'pago')
+            ->whereNotNull('aluno_id')
+            ->orderBy('id', 'asc')
+            ->get();
+
+
+        // inserir mais 97 na turma da Mediateca
+        foreach ($formandos as $cand) {
+
+            set_time_limit(0);
+            $conta = Alunoformacao::where('turma_id', 15)->count();
+
+            if ($conta < 100) {
+
+                if (in_array($cand->aluno_id, $vetor_excecao) == false) {
+
+                    $aluno_formacao = Alunoformacao::where('aluno_id', $cand->aluno_id)->first();
+                    $candidatura = Candidaturaformacao::where('aluno_id', $cand->aluno_id)->first();
+
+                    $aluno_formacao->turma_id = 15;
+                    $aluno_formacao->formacao_id = 5;
+                    $aluno_formacao->save();
+                    $candidatura->turma_id = 15;
+                    $candidatura->formacao_id = 5;
+                    $candidatura->year_id = 4;
+                    $candidatura->save();
+
+                    echo $contador . ' - ' . $aluno_formacao->getAluno->getPessoa->nome . ' Turma A (Mediateca de Luanda) <br>';
+                }
+            }
+
+            $contador++;
+        }
+
+
+        // distribuir os restantes alunos entre as turmas B e C (Óscar Ribas)
+
+        $formandos = Candidaturaformacao::where('turma_id', 14)
+            ->where('pago', 'pago')
+            ->whereNotNull('aluno_id')
+            ->orderBy('id', 'asc')
+            ->get();
+
+        $contador = 101;
+        foreach ($formandos as $cand) {
+
+            set_time_limit(0);
+
+            $aluno_formacao = Alunoformacao::where('aluno_id', $cand->aluno_id)->first();
+            $candidatura = Candidaturaformacao::where('aluno_id', $cand->aluno_id)->first();
+            $pessoa = $cand->getPessoa;
+
+            if (in_array($cand->aluno_id, $vetor_excecao) == false) {
+
+                $conta1 = Alunoformacao::where('turma_id', 16)->count();
+                $conta2 = Alunoformacao::where('turma_id', 17)->count();
+
+                if ($conta1 < 100 && $contador % 2 == 0) {
+
+                    $turma_id = 16;
+                    $aluno_formacao->turma_id = $turma_id;
+                    $aluno_formacao->formacao_id = 5;
+                    $aluno_formacao->save();
+
+                    $candidatura->turma_id = $turma_id;
+                    $candidatura->formacao_id = 5;
+                    $candidatura->year_id = 4;
+                    $candidatura->save();
+
+                    echo $contador . ' - ' . $pessoa->nome . ' Turma B (Óscar Ribas) <br>';
+
+                } else if ($conta2 < 100 && $contador % 2 == 1) {
+
+                    $turma_id = 17;
+                    $aluno_formacao->turma_id = $turma_id;
+                    $aluno_formacao->formacao_id = 5;
+                    $aluno_formacao->save();
+
+                    $candidatura->turma_id = $turma_id;
+                    $candidatura->formacao_id = 5;
+                    $candidatura->year_id = 4;
+                    $candidatura->save();
+
+                    echo $contador . ' - ' . $pessoa->nome . ' Turma C (Óscar Ribas) <br>';
+                } else {
+                    echo $contador . ' - ' . $pessoa->nome . ' Turma Presencial <br>';
+                }
+
+            } else {
+                echo $contador . ' - ' . $pessoa->nome . ' Turma A (Mediateca de Luanda) <br>';
+            }
+
+            $contador++;
+
+        }
+    }
+
+    public function smsWhatsapp($id_turma)
+    {
+
+        $formandos = Alunoformacao::where('turma_id', $id_turma)->get();
+        // dd($formandos);
+
+        $ob = new OmbalaController();
+        $cont = 1;
+
+        foreach ($formandos as $item) {
+
+            set_time_limit(0);
+
+            if ($cont >= 66) {
+                $telefone = $item->getAluno->getPessoa->telefone1;
+                $nome = $item->getAluno->getPessoa->nome;
+                // dd($nome);
+                $mensagem = "Caríssimo(a), fará parte da Turma A (Mediateca de Luanda). Segue o link de acesso ao grupo da turma: https://chat.whatsapp.com/I5lYB5elgSX9DGQYDV0MvH?mode=gi_t";
+                $ob->enviarMensagem($telefone, $mensagem);
+
+                echo 'Mensagem enviada para ' . $nome . ' - ' . $telefone . '<br>';
+            }
+
+            $cont++;
+
+        }
+
+
+    }
+
+    public function enviarEmail($id_turma)
+    {
+
+        $formandos = Alunoformacao::where('turma_id', $id_turma)->get();
+        dd($formandos);
+
+        $ob = new MailController();
+        $cont = 1;
+
+        foreach ($formandos as $item) {
+
+            set_time_limit(0);
+
+            $email = $item->getAluno->getPessoa->email;
+            $nome = $item->getAluno->getPessoa->nome;
+            // dd($nome);
+            $ob->aberturaTurmaC($email,$nome);
+
+            echo $cont . ') Email enviado para ' . $nome . ' - ' . $email . '<br>';
+            $cont++;
+
+        }
+
+    }
+    
 }

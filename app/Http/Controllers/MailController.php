@@ -160,156 +160,6 @@ class MailController extends Controller
         }
     }
     
-    public function convite_turma_concorrencia($email, $nome)
-    {
-
-        // mensagem do email
-        $mensagem = "
-        <h2 style='color: #2F5496; font-weight: bold;'>Seja bem-vindo ao Curso de Direito da Regulação da Concorrência</h2>
-        <hr>
-        <p>
-        Prezado(a) Formando(a) $nome;<br><br><br>
-        Cumpre-nos informar que o início do Curso de Direito da Regulação da Concorrência está previsto para o dia 17 de Novembro de 2025 (Segunda-feira), às 14h00, no Auditório Abílio Gomes, Largo da Mutamba, no edifício do Ministério das Finanças.<br><br>
-        Contamos com a sua pontual presença.<br><br> 
-        Com os melhores cumprimentos,<br><br>
-        CEF-OAA<br>
-        CEF-OAA | Urbanização Nova Vida, Rua 69, Casa n.º 7164, Kilamba Kiaxi, Luanda, Angola<br>
-        Tel.: +244924956 037 | +244 935542465<br>
-        E-mail:geral@cef-oaa.org | www.cef-oaa.org
-        </p>
-        ";
-
-        $dados_email = [
-            "from" => [
-                "email" => "suporte.inscricao.enoaa@cef-oaa.org",
-                "name" => "CEF - OAA"
-            ],
-            "to" => [
-                [
-                    "email" => $email,
-                    "name" => $nome
-                ]
-            ],
-
-            "subject" => "Início do Curso de Direito da Regulação da Concorrência",
-            "html" => $mensagem,
-            "category" => "CDRC"
-        ];
-
-
-        $data = json_encode($dados_email);
-        $curl = curl_init();
-
-        $httpHeader = [
-            "Authorization: " . "Bearer d8a3c218f7efb6be2f3c11797af2e60e",
-            "Content-Type: application/json",
-        ];
-
-        $opts = [
-            CURLOPT_URL => "https://send.api.mailtrap.io/api/send",
-            CURLOPT_CUSTOMREQUEST => "POST",
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_TIMEOUT => 30,
-            CURLOPT_HTTPHEADER => $httpHeader,
-            CURLOPT_POSTFIELDS => $data
-        ];
-
-        curl_setopt_array($curl, $opts);
-
-        $response = curl_exec($curl);
-
-        $err = curl_error($curl);
-        curl_close($curl);
-
-        return $response;
-        if ($response == "") {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public function mailGun($email, $nome)
-    {
-
-        // mensagem do email
-        $mensagem = "
-        <h2 style='color: #2F5496; font-weight: bold;'>Seja bem-vindo à FORMAÇÃO INICIAL OBRIGATÓRIA</h2>
-        <hr>
-        <p>
-        Prezado(a) Formando(a) $nome, <br><br><br>
-        Cumpre-nos informar que está prevista para o dia 17/05/2024, Sexta-Feira às 18:00 a sessão de abertura do 31º Curso da Formação Inicial Obrigatória.<br><br>
-        Será realizada no anfiteatro da Universidade Gregório Semedo.<br><br>
-        Outrossim, gostaríamos de informar que teremos um grupo do WhatsApp para facilitar a comunicação diária entre o CEF-OAA e o(a) formando(a), para aceder ao grupo basta clicar em:<br><br>
-        <a href='https://chat.whatsapp.com/IUGMgw9xAM7GJz2UbLTAiZ'>https://chat.whatsapp.com/IUGMgw9xAM7GJz2UbLTAiZ</a><br><br>
-        Pode também entrar em contacto via WhatsApp por meio dos números de telefone 935 54 24 65 ou 924 95 60 37 para ser adicionado ao grupo, enviando a mensagem TURMA A.<br><br>
-        Melhores cumprimentos<br><br>
-        CEF-OAA<br>
-        CEF-OAA | Urbanização Nova Vida, Rua 69, Casa n.º 7164, Kilamba Kiaxi, Luanda, Angola<br>
-        Tel.: +244924956 037 | +244 935542465<br>
-        E-mail:geral@cef-oaa.org | www.cef-oaa.org
-        </p>
-        ";
-
-        $dados_email = [
-
-            "to" => [
-                [
-                    "email" => $email,
-                    "name" => $nome
-                ]
-            ],
-
-            "from" => [
-                "email" => "nganzadipedro.emp@gmail.com",
-                "name" => "CEF - OAA"
-            ],
-            "headers" => [
-                "X-Message-Source" => "demomailtrap.com"
-            ],
-
-            "subject" => "Your Example Order Confirmation",
-            "html" => $mensagem,
-        ];
-
-
-        $data = json_encode($dados_email);
-        $curl = curl_init();
-
-        $httpHeader = [
-            "Accept: application/json",
-            "Authorization: Bearer 2b0d9bd4486d33ac78a97cd3728ee641",
-            "Api-Token: 2b0d9bd4486d33ac78a97cd3728ee641",
-            "Content-Type: application/json"
-        ];
-
-        $opts = [
-            CURLOPT_URL => "https://send.api.mailtrap.io/api/send",
-            CURLOPT_CUSTOMREQUEST => "POST",
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_TIMEOUT => 30,
-            CURLOPT_HTTPHEADER => $httpHeader,
-            CURLOPT_POSTFIELDS => $data
-        ];
-
-        curl_setopt_array($curl, $opts);
-
-        $response = curl_exec($curl);
-
-        $err = curl_error($curl);
-        curl_close($curl);
-
-        return $response;
-
-        if ($response == "") {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
     public function mailPagamento($email, $nome, $password)
     {
 
@@ -641,28 +491,24 @@ class MailController extends Controller
         
     }
 
-    public function mailConfirmacao($email, $nome)
+    public function aberturaTurmaA($email, $nome)
     {
 
         // mensagem do email
         $mensagem = "
-        <h2 style='color: #2F5496; font-weight: bold;'>Confirmação de disponibilidade | Formação Inicial Obrigatória</h2>
+        <h2 style='color: #2F5496; font-weight: bold;'>Sejam bem-vindo(a)s à FORMAÇÃO INICIAL OBRIGATÓRIA</h2>
         <hr>
         <p>
-        Caríssimo(a) Candidato(a) $nome, encontramos os seus dados na nossa base de dados com a situação pendente para a Formação Inicial Obrigatória.<br><br>
-        Caso ainda tenha disponibilidade para fazer a formação, solicitamos que preencha o formulário a seguir, dentro de 48 Horas.<br><br>
-        Link de acceso ao formulário: <a href='https://forms.gle/TUdetZPoS4MXvVoH9'>Formulário de Disponibilidade</a>.<br><br>
-        Caso não preencher o formulário dentro do prazo estipulado, consideraremos a sua inscrição suspensa para a Turma A - 34º Ciclo de 2025.<br><br>
-        </p>
-        <p>
-        <br><br>
-        OBS: NÃO RESPONDA ESTE EMAIL.<br><br>
-        Atenciosamente, <br><br>
+        Prezado(a)s Formando(a)s;<br><br>
+        Cumpre-nos informar que está prevista para o dia 11/05/2026, Segunda-feira, amanhã às 17:00 o início da formação, nas instalações da Mediateca de Luanda.<br><br>
+        O primeiro módulo será o de Práticas Júridicas multidisciplinares.Mais informa que teremos um grupo do WhatsApp para partilha de informações diárias.<br><br> 
+        Clique no link para aceder ao grupo: <a href='https://chat.whatsapp.com/LlxRNq3JcKuEXB4PnNITfk?mode=gi_t'>https://chat.whatsapp.com/LlxRNq3JcKuEXB4PnNITfk?mode=gi_t</a><br><br>
+        Melhores cumprimentos<br><br>
         CEF-OAA<br>
         CEF-OAA | Urbanização Nova Vida, Rua 69, Casa n.º 7164, Kilamba Kiaxi, Luanda, Angola<br>
         Tel.: +244924956 037 | +244 935542465<br>
         E-mail:geral@cef-oaa.org | www.cef-oaa.org
-        </p>       
+        </p>
         ";
 
         $dados_email = [
@@ -677,9 +523,9 @@ class MailController extends Controller
                 ]
             ],
 
-            "subject" => "FIO - 2025 | Confirmação de Disponibilidade",
+            "subject" => "TURMA A | FIO - 36º CICLO - 2026",
             "html" => $mensagem,
-            "category" => "Disponibilidade - FIO - 2025"
+            "category" => "TURMA A"
         ];
 
 
@@ -715,23 +561,21 @@ class MailController extends Controller
         } else {
             return false;
         }
-        
     }
 
-    public function turmaC($email, $nome)
+    public function aberturaTurmaB($email, $nome)
     {
 
         // mensagem do email
         $mensagem = "
-        <h2 style='color: #2F5496; font-weight: bold;'>Seja bem-vindo à FORMAÇÃO INICIAL OBRIGATÓRIA</h2>
+        <h2 style='color: #2F5496; font-weight: bold;'>Sejam bem-vindo(a)s à FORMAÇÃO INICIAL OBRIGATÓRIA</h2>
         <hr>
         <p>
-        Prezado(a) Formando(a) $nome; <br><br><br>
-        Fará parte da TURMA D do 32º curso da Formação Inicial Obrigatória.<br><br>
-        Cumpre-nos informar, que está prevista para o dia 26 de Julho, Sexta feira a sessão de abertura do 32º Curso, turma D pelas 18 horas.<br><br>  
-        Outrossim, gostaríamos de informar que teremos um grupo do WhatsApp para facilitar a comunicação diária entre o CEF-OAA e o(a) formando(a), para aceder ao grupo basta clicar em:<br><br>
-        <a href='https://chat.whatsapp.com/Gf2AMa9VDAM1FkbavpOsyc'>https://chat.whatsapp.com/Gf2AMa9VDAM1FkbavpOsyc</a><br><br>
-        Pode também entrar em contacto via WhatsApp por meio do número de telefone 935 54 24 65, para ser adicionado ao grupo, enviando a mensagem TURMA D.<br><br>
+        Prezado(a)s Formando(a)s;<br><br>
+        Cumpre-nos informar que V. Exas. integram a Turma B da Universidade Óscar Ribas.<br><br>
+        Informamos, igualmente, que brevemente será comunicada a data de início das aulas e demais informações académicas relevantes.<br><br>
+        Para efeitos de comunicação diária e partilha de informações importantes, foi criado um grupo de WhatsApp, ao qual poderão aderir através do seguinte link:<br>
+        <a href='https://chat.whatsapp.com/FH1Q4JnvHSF1NUVU2sh1wF?mode=gi_t'>https://chat.whatsapp.com/FH1Q4JnvHSF1NUVU2sh1wF?mode=gi_t</a><br><br>
         Melhores cumprimentos<br><br>
         CEF-OAA<br>
         CEF-OAA | Urbanização Nova Vida, Rua 69, Casa n.º 7164, Kilamba Kiaxi, Luanda, Angola<br>
@@ -742,7 +586,7 @@ class MailController extends Controller
 
         $dados_email = [
             "from" => [
-                "email" => "suporte.inscricao.enoaa@cef-oaa.org",
+                "email" => "suporte.tecnico@cef-oaa.org",
                 "name" => "CEF - OAA"
             ],
             "to" => [
@@ -752,9 +596,9 @@ class MailController extends Controller
                 ]
             ],
 
-            "subject" => "TURMA D || FIO - 2024",
+            "subject" => "TURMA B | FIO - 36º CICLO - 2026",
             "html" => $mensagem,
-            "category" => "TURMA D"
+            "category" => "TURMA B"
         ];
 
 
@@ -783,29 +627,28 @@ class MailController extends Controller
         $err = curl_error($curl);
         curl_close($curl);
 
-        return $response;
-        if ($response == "") {
+        $response = json_decode($response);
+
+        if ($response->success == true) {
             return true;
         } else {
             return false;
         }
     }
 
-    public function mailZoom($email, $nome)
+    public function aberturaTurmaC($email, $nome)
     {
 
         // mensagem do email
         $mensagem = "
-        <h2 style='color: #2F5496; font-weight: bold;'>Seja bem-vindo à FORMAÇÃO INICIAL OBRIGATÓRIA</h2>
+        <h2 style='color: #2F5496; font-weight: bold;'>Sejam bem-vindo(a)s à FORMAÇÃO INICIAL OBRIGATÓRIA</h2>
         <hr>
         <p>
-        Prezado(a) Formando(a) $nome; <br><br><br>
-        Cumpre-nos informar, que está prevista para o dia 06/09/2024, Sexta feira às 18:00 a sessão de abertura do 33º Curso da Formação Inicial Obrigatória.<br><br>  
-        A SESSÃO DE ABERTURA SERÁ VIRTUAL.<br><br>
-        Entrar Zoom Reunião<br><br>
-        https://us02web.zoom.us/j/88403651852?pwd=G1sFOnvep8aRn61z2myCdkhzHMenQe.1<br><br>
-        ID da reunião: 884 0365 1852<br><br>
-        Senha: 226969<br><br><br>
+        Prezado(a)s Formando(a)s;<br><br>
+        Cumpre-nos informar que V. Exas. integram a Turma C da Universidade Óscar Ribas.<br><br>
+        Informamos, igualmente, que brevemente será comunicada a data de início das aulas e demais informações académicas relevantes.<br><br>
+        Para efeitos de comunicação diária e partilha de informações importantes, foi criado um grupo de WhatsApp, ao qual poderão aderir através do seguinte link:<br>
+        <a href='https://chat.whatsapp.com/LTw2RuP8x0ALyHi4VOciJg?mode=gi_t'>https://chat.whatsapp.com/LTw2RuP8x0ALyHi4VOciJg?mode=gi_t</a><br><br>
         Melhores cumprimentos<br><br>
         CEF-OAA<br>
         CEF-OAA | Urbanização Nova Vida, Rua 69, Casa n.º 7164, Kilamba Kiaxi, Luanda, Angola<br>
@@ -816,7 +659,7 @@ class MailController extends Controller
 
         $dados_email = [
             "from" => [
-                "email" => "suporte.inscricao.enoaa@cef-oaa.org",
+                "email" => "suporte.tecnico@cef-oaa.org",
                 "name" => "CEF - OAA"
             ],
             "to" => [
@@ -826,9 +669,9 @@ class MailController extends Controller
                 ]
             ],
 
-            "subject" => "FIO - 2024",
+            "subject" => "TURMA C | FIO - 36º CICLO - 2026",
             "html" => $mensagem,
-            "category" => "FIO - 2024"
+            "category" => "TURMA C"
         ];
 
 
@@ -857,8 +700,9 @@ class MailController extends Controller
         $err = curl_error($curl);
         curl_close($curl);
 
-        return $response;
-        if ($response == "") {
+        $response = json_decode($response);
+
+        if ($response->success == true) {
             return true;
         } else {
             return false;

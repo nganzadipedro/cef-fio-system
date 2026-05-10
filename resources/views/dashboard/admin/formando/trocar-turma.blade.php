@@ -60,7 +60,8 @@
                                 Nº documento de Identificação: {{ $num_documento }} <br>
                                 Estado da candidatura: {{ $estado }} <br>
                                 Pagamento feito: {{ $candidatura->pago }} <br><br>
-                                Turma actual: {{ $turma_actual }}
+                                Turma actual: {{ $turma_actual }}<br>
+                                Formação: {{ $formacao }}
                             </h4>
                         </div>
                     @endif
@@ -72,7 +73,9 @@
                         <select class="form-control" name="" id="" wire:model="turma_id">
                             <option value="">Selecione...</option>
                             @foreach ($turmas as $item)
-                                <option value="{{ $item->id }}">{{ $item->descricao }}</option>
+                            @if ($item->id >= 13)
+                             <option value="{{ $item->id }}">{{ $item->descricao }} ({{ $item->getFormacao->nome }})</option>
+                            @endif 
                             @endforeach
                         </select>
 

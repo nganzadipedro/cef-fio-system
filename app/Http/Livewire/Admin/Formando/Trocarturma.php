@@ -19,6 +19,7 @@ class Trocarturma extends Component
     public $nome_candidato = '';
     public $num_documento = '';
     public $estado = '';
+    public $formacao = '';
     public $turma_actual = '';
     public $tem = false;
     public $provincias = array();
@@ -35,6 +36,8 @@ class Trocarturma extends Component
         if ($this->codigo == null || $this->codigo == '') {
             $this->mensagem('Digite o código do candidato', 'warning');
         } else {
+
+            $this->codigo = trim($this->codigo);
             $this->candidatura = Candidaturaformacao::where('codigo', $this->codigo)
                 ->first();
 
@@ -51,6 +54,7 @@ class Trocarturma extends Component
                 $this->num_documento = $this->candidatura->getPessoa->num_documento;
                 $this->estado = $this->candidatura->estado;
                 $turma = Turma::find($this->candidatura->turma_id);
+                $this->formacao = $turma->getFormacao->nome;
                 $this->turma_actual = $turma->descricao;
             }
         }
@@ -65,6 +69,7 @@ class Trocarturma extends Component
             $this->num_documento = '';
             $this->estado = '';
             $this->turma_actual = '';
+            $this->formacao = '';
             $this->candidatura == null;
         } else {
 
@@ -85,18 +90,20 @@ class Trocarturma extends Component
                     $this->mensagem('Indique a nova turma para o candidato', 'warning');
                 } else {
 
-                    $turma = Turma::find($this->candidatura->turma_id);
-                    $antiga = $turma->descricao;
-                    $turma = Turma::find($this->turma_id);
-                    $nova = $turma->descricao;
+                    $turma_antiga = Turma::find($this->candidatura->turma_id);
+                    $antiga = $turma_antiga->descricao;
+                    $turma_nova = Turma::find($this->turma_id);
+                    $nova = $turma_nova->descricao;
 
                     $nome = $this->nome_candidato;
                     $msg = "Trocou a turma do candidato $nome de $antiga para $nova";
 
                     $this->candidatura->turma_id = $this->turma_id;
+                    $this->candidatura->formacao_id = $turma_nova->formacao_id;
                     $this->candidatura->save();
 
                     $aluno_form->turma_id = $this->turma_id;
+                    $aluno_form->formacao_id = $turma_nova->formacao_id;
                     $aluno_form->save();
 
                     ActividadesistemaController::inserir(Auth::id(), $msg, 'CEF', 'candidatura', $this->candidatura->id);
@@ -107,7 +114,7 @@ class Trocarturma extends Component
                     $this->num_documento = '';
                     $this->estado = '';
                     $this->turma_actual = '';
-                    $this->provincia_id = null;
+                    $this->formacao = '';
                     $this->candidatura == null;
                 }
             }
