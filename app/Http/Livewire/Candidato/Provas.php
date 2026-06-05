@@ -64,7 +64,7 @@ class Provas extends Component
 
                     //dd($ap);
 
-                    if ($ap->estado == 'realizada') {
+                    if ($ap->estado == 'realizada' || $ap->estado == 'realizando') {
                         return 'prova realizada';
                     } else {
                         return 'true';
@@ -79,10 +79,43 @@ class Provas extends Component
     public function calcula_resultado($id)
     {
 
+        date_default_timezone_set("Africa/Luanda");
+        $data_hoje = date("Y-m-d");
+        $hora_hoje = date("H:i:s");
         $prova = Prova::find($id);
-        $respostas = Respostaprova::where('prova_id', $prova->id)
+
+        // verifica se o aluno já fez a prova
+        $ap = Atribuicaoalunoprova::where('prova_id', $prova->id)
             ->where('aluno_id', $this->aluno->id)
-            ->where('disciplina_id', $prova->disciplina_id)
+            ->first();
+
+        $af = Alunoformacao::where('aluno_id', $this->aluno->id)->first();
+
+        if ($ap != null) {
+            if ($ap->estado == 'atribuido') {
+                return 'Nota Indisponível';
+            } else if ($ap->estado == 'não realizada') {
+                return 'Nota Indisponível';
+            } else if ($ap->estado == 'realizando' && $data_hoje == $prova->data_prova && strtotime($hora_hoje) < strtotime($prova->hora_fim)) {
+                return 'Nota Indisponível';
+            } else if ($ap->estado == 'realizando' && $data_hoje == $prova->data_prova && strtotime($hora_hoje) >= strtotime($prova->hora_fim)) {
+                return $this->pega_nota($prova->id, $prova->disciplina_id, $af->turma_id);
+            } else if ($ap->estado == 'realizando' && $data_hoje > $prova->data_prova) {
+                return $this->pega_nota($prova->id, $prova->disciplina_id, $af->turma_id);
+            } else if ($ap->estado == 'realizada') {
+                return $this->pega_nota($prova->id, $prova->disciplina_id, $af->turma_id);
+            }
+        } else {
+            return 'Nota Indisponível';
+        }
+
+    }
+
+    public function pega_nota($prova_id, $disciplina_id, $turma_id)
+    {
+        $respostas = Respostaprova::where('prova_id', $prova_id)
+            ->where('aluno_id', $this->aluno->id)
+            ->where('disciplina_id', $disciplina_id)
             ->get();
 
         $nota = 0;
@@ -91,33 +124,15 @@ class Provas extends Component
             $nota = $nota + $resp->cotacao;
         }
 
-        $ap = Atribuicaoalunoprova::where('prova_id', $prova->id)
-            ->where('aluno_id', $this->aluno->id)
-            ->where('disciplina_id', $prova->disciplina_id)
+        $avaliacao = Avaliacaoaluno::where('aluno_id', $this->aluno->id)
+            ->where('disciplina_id', $disciplina_id)
+            ->where('turma_id', $turma_id)
             ->first();
 
-        if ($ap != null) {
-
-            $avaliacao = Avaliacaoaluno::where('aluno_id', $this->aluno->id)
-                ->where('disciplina_id', $prova->disciplina_id)
-                ->where('turma_id', $prova->turma_id)
-                ->first();
-
-            if ($avaliacao != null) {
-
-                if ($ap->estado == 'realizada' || $ap->estado == 'realizando') {
-                    return $avaliacao->nota2 > 20 ? 20 : $avaliacao->nota2;
-                } else {
-                    return 'Nota Indisponível';
-                }
-            }
-            else{
-                return 'Nota Indisponível';
-            }
-        }
-        else{
+        if ($avaliacao != null) {
+            return $avaliacao->nota2 > 20 ? 20 : $avaliacao->nota2;
+        } else {
             return 'Nota Indisponível';
         }
-
     }
 }

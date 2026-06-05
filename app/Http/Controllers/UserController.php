@@ -1046,9 +1046,7 @@ class UserController extends Controller
                 echo 'candidatura não encontrada ' . $linha->codigo;
                 echo '<br><br>';
             }
-
         }
-
     }
     
      public function duplicaprova($id_prova_antiga, $nova_turma){

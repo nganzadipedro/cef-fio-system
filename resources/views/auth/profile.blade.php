@@ -27,7 +27,7 @@
                             <img src="{{ asset('assets/template/images/users/user_default.jpg') }}" alt="user-img"
                                 class="img-thumbnail rounded-circle" />
                         @else
-                            <img src="{{ asset('storage/' . $usuario->getPessoa->avatar) }}" alt="user-img"
+                            <img src="{{ asset('sysapp/storage/app/public/' . Auth::user()->getPessoa->avatar) }}" alt="user-img"
                                 class="img-thumbnail rounded-circle" />
                         @endif
 

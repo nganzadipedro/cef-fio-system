@@ -27,6 +27,10 @@
                                 <div class="text-center">
                                     <button type="button" class="btn btn-primary rounded-pill">
                                         {{ count($lista) }} Declarações </button>
+                                    <button type="button" class="btn btn-info rounded-pill">
+                                        {{ $homens }} Homens </button>
+                                    <button type="button" class="btn btn-warning rounded-pill">
+                                        {{ $mulheres }} Mulheres </button>
                                 </div>
                             </div>
                         </div>
@@ -62,46 +66,46 @@
                     </thead>
                     <tbody>
                         @foreach ($lista as $item)
-                                                <tr>
-                                                    <td scope="col">{{ $item->id }}</td>
-                                                    <td scope="col">{{ $item->getAluno->getPessoa->nome }}</td>
-                                                    <td scope="col">{{ $item->getAluno->num_cedula_advogado }}</td>
+                            <tr>
+                                <td scope="col">{{ $item->id }}</td>
+                                <td scope="col">{{ $item->getAluno->getPessoa->nome }}</td>
+                                <td scope="col">{{ $item->getAluno->num_cedula_advogado }}</td>
 
-                                                    @if($item->getAluno->e_antigo == 'sim')
-                                                        <td scope="col">
-                                                            <span class="badge text-bg-primary">{{ $item->getAluno->formacao }}</span>
-                                                        </td>
-                                                        <td scope="col">{{ $item->getAluno->turma }}</td>
-                                                    @else
-                                                        <td scope="col">
-                                                            <span class="badge text-bg-primary">{{ $item->getFormacao->nome }}</span>
-                                                        </td>
-                                                        <td scope="col">{{ $item->getTurma->descricao }}</td>
-                                                    @endif
+                                @if($item->getAluno->e_antigo == 'sim')
+                                    <td scope="col">
+                                        <span class="badge text-bg-primary">{{ $item->getAluno->formacao }}</span>
+                                    </td>
+                                    <td scope="col">{{ $item->getAluno->turma }}</td>
+                                @else
+                                    <td scope="col">
+                                        <span class="badge text-bg-primary">{{ $item->getFormacao->nome }}</span>
+                                    </td>
+                                    <td scope="col">{{ $item->getTurma->descricao }}</td>
+                                @endif
 
-                                                    <td scope="col">{{ $item->created_at }}</td>
+                                <td scope="col">{{ $item->created_at }}</td>
 
-                                                    @php
-                                                        $hash = $this->getHashes($item->id);
-                                                    @endphp
+                                @php
+                                    $hash = $this->getHashes($item->id);
+                                @endphp
 
-                                                    @if (Auth::user()->permission_id != 3)
+                                @if (Auth::user()->permission_id != 3)
 
-                                                        @if ($item->getAluno->e_antigo == 'sim')
-                                                            <td class="">
-                                                                <a target="_blank" href="{{ route('revisor.emitirdec_antigo', $hash[0]) }}"
-                                                                    class="btn btn-info">Imprimir</a>
-                                                            </td>
-                                                        @else
-                                                            <td class="">
-                                                                <a target="_blank" href="{{ route('emitirdec', [$hash[0], $hash[1]]) }}"
-                                                                    class="btn btn-info">Imprimir</a>
-                                                            </td>
-                                                        @endif
+                                    @if ($item->getAluno->e_antigo == 'sim')
+                                        <td class="">
+                                            <a target="_blank" href="{{ route('revisor.emitirdec_antigo', $hash[0]) }}"
+                                                class="btn btn-info">Imprimir</a>
+                                        </td>
+                                    @else
+                                        <td class="">
+                                            <a target="_blank" href="{{ route('emitirdec', [$hash[0], $hash[1]]) }}"
+                                                class="btn btn-info">Imprimir</a>
+                                        </td>
+                                    @endif
 
-                                                    @endif
+                                @endif
 
-                                                </tr>
+                            </tr>
                         @endforeach
 
                     </tbody>

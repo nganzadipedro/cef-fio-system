@@ -29,6 +29,7 @@ Route::group(['middleware' => 'guest'], function () {
     Route::get('pagou/{id}',  'Controllers\UserController@transformar_pago');
     Route::get('notas', 'Controllers\UserController@verifica_codigos_repetidos');
     Route::get('trata-dados', 'Controllers\FormacaoController@distribuir_alunos');
+    Route::get('finaliza-prova/{idturma}/{iddiscip}', 'Controllers\FormacaoController@finalizar_prova');
     Route::post('registerCandidato', 'Controllers\CandidaturaController@store');
     Route::post('registerCandidatoEnoaa', 'Controllers\CandidaturaController@storeEnoaa');
     Route::post('validacaoCandidatoEnoaa', 'Controllers\CandidaturaController@validaStoreEnoaa');

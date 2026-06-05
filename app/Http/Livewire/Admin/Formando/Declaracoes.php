@@ -16,7 +16,29 @@ class Declaracoes extends Component
     public function render()
     {
 
+        $this->lista = Emissaodeclaracao::join('aluno', 'emissao_declaracao.aluno_id', 'aluno.id')
+            ->join('pessoas', 'pessoas.id', 'aluno.pessoa_id')
+            ->select('emissao_declaracao.*')
+            ->get();
+
+        $this->homens = 0;
+        $this->mulheres = 0;
+
+        if (count($this->lista) > 0) {
+            foreach ($this->lista as $item) {
+                if ($item->aluno_id !== null) {
+                    if ($item->getAluno->getPessoa->genero == 'Masculino') {
+                        $this->homens++;
+                    } else {
+                        $this->mulheres++;
+                    }
+                }
+
+            }
+        }
+
         $this->lista = Emissaodeclaracao::all();
+
         return view('dashboard.admin.formando.declaracoes')->extends('layouts.app')->section('conteudo');
     }
 
@@ -30,10 +52,14 @@ class Declaracoes extends Component
 
             $candidatura = Candidaturaformacao::where('aluno_id', $declaracao->aluno_id)
                 ->where('turma_id', $declaracao->turma_id)
-                ->where('formacao_id', $declaracao->formacao_id)->first();
+                ->first();
 
-            $res[0] = $candidatura->hash;
-            $res[1] = $declaracao->getAluno->hash;
+            if ($candidatura) {
+                $res[0] = $candidatura->hash;
+                $res[1] = $declaracao->getAluno->hash;
+            } else {
+                dd($id_declaracao);
+            }
 
         } else {
             $res[0] = $declaracao->getAluno->hash;

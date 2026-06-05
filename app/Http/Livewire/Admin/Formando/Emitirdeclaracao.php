@@ -80,7 +80,7 @@ class Emitirdeclaracao extends Component
                 $this->tem = false;
             } else if ($this->candidatura != null && $al != null && $af != null) {
 
-                if ($af->turma_id >= 11 || $this->candidatura->turma_id >= 11) {
+                if ($af->turma_id >= 13 || $this->candidatura->turma_id >= 13) {
                     $this->mensagem('Esta turma ainda não tem permissão de emitir declaração', 'warning');
                     $this->tem = false;
                 }

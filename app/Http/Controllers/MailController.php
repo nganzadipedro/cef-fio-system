@@ -709,4 +709,77 @@ class MailController extends Controller
         }
     }
 
+     public function aberturaTurmaD($email, $nome)
+    {
+
+        // mensagem do email
+        $mensagem = "
+        <h2 style='color: #2F5496; font-weight: bold;'>Sejam bem-vindo(a)s à FORMAÇÃO INICIAL OBRIGATÓRIA</h2>
+        <hr>
+        <p>
+        Prezado(a)s Formando(a)s;<br><br>
+        Cumpre-nos informar que V. Exas. integram a Turma D.<br><br>
+        Informamos, igualmente, que brevemente será comunicada a data de início das aulas e demais informações académicas relevantes.<br><br>
+        Para efeitos de comunicação diária e partilha de informações importantes, foi criado um grupo de WhatsApp, ao qual poderão aderir através do seguinte link:<br>
+        <a href='https://chat.whatsapp.com/ID6Phcsxxpq9V6YK65FRcG?mode=gi_t'>https://chat.whatsapp.com/ID6Phcsxxpq9V6YK65FRcG?mode=gi_t</a><br><br>
+        Melhores cumprimentos<br><br>
+        CEF-OAA<br>
+        CEF-OAA | Urbanização Nova Vida, Rua 69, Casa n.º 7164, Kilamba Kiaxi, Luanda, Angola<br>
+        Tel.: +244924956 037 | +244 935542465<br>
+        E-mail:geral@cef-oaa.org | www.cef-oaa.org
+        </p>
+        ";
+
+        $dados_email = [
+            "from" => [
+                "email" => "suporte.tecnico@cef-oaa.org",
+                "name" => "CEF - OAA"
+            ],
+            "to" => [
+                [
+                    "email" => $email,
+                    "name" => $nome
+                ]
+            ],
+
+            "subject" => "TURMA D | FIO - 36º CICLO - 2026",
+            "html" => $mensagem,
+            "category" => "TURMA D"
+        ];
+
+
+        $data = json_encode($dados_email);
+        $curl = curl_init();
+
+        $httpHeader = [
+            "Authorization: " . "Bearer d8a3c218f7efb6be2f3c11797af2e60e",
+            "Content-Type: application/json",
+        ];
+
+        $opts = [
+            CURLOPT_URL => "https://send.api.mailtrap.io/api/send",
+            CURLOPT_CUSTOMREQUEST => "POST",
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_TIMEOUT => 30,
+            CURLOPT_HTTPHEADER => $httpHeader,
+            CURLOPT_POSTFIELDS => $data
+        ];
+
+        curl_setopt_array($curl, $opts);
+
+        $response = curl_exec($curl);
+
+        $err = curl_error($curl);
+        curl_close($curl);
+
+        $response = json_decode($response);
+
+        if ($response->success == true) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 }

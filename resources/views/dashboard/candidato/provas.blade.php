@@ -107,7 +107,7 @@
         <div class="col-xxl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <p class="informacao mt-3">
                 Caro candidato, tenha em atenção que as provas apresentadas nesta secção, são aquelas que foram ou serão
-                realizadas de forma online pela plataforma do
+                realizadas online pela plataforma do
                 CEF-OAA. Qualquer prova que não foi realizada por meio desta plataforma, não estará visível nesta secção.
                 Para visualizares as notas de todas as provas, clique <a href="{{ route('vercandidatura', $candidatura->hash) }}">neste link</a> e aceda ao item "Notas Finais".
             </p>
@@ -119,14 +119,14 @@
                     <div class="card card-body text-center">
 
                         <h3>{{ $item->getprova->nome }} </h3>
-                        <h4>Disciplina: {{ $item->getprova->getdisciplina->descricao }}</h4>
+                        <h4>Módulo: {{ $item->getprova->getdisciplina->descricao }}</h4>
                         <h5>Data da Prova: {{ $item->getprova->data_prova }}</h5>
                         <p class="card-text text-center">
                             {{ $item->getprova->getturma->descricao }} <br>
                             {{ $item->getprova->getturma->getformacao->nome }} <br>
                             Hora de Início: {{ $item->getprova->hora_inicio }} <br>
                             Hora de Término: {{ $item->getprova->hora_fim }} <br>
-                            Professor(a): {{ $item->getprova->getprofessor->getpessoa->nome }} <br><br>
+                            Formador(a): {{ $item->getprova->getprofessor->getpessoa->nome }} <br><br>
                             @if($item->estado == 'realizada' || $item->estado == 'realizando')
                                 Resultado: {{ $this->calcula_resultado($item->prova_id) }}
                             @endif
@@ -135,8 +135,6 @@
                         @if($this->verifica_data($item->prova_id) == 'true')
                             <a href="{{ route('candidato.fazerprova', [$item->getprova->hash, $aluno->hash]) }}"
                                 class="btn btn-primary">Fazer a prova agora</a>
-                        @else
-                            <label for="" class="text-danger">A prova está indisponível neste momento.</label>
                         @endif
                     </div>
                 </div><!-- end col -->

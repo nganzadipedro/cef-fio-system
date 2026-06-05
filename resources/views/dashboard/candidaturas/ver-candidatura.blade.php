@@ -97,11 +97,11 @@
 
                                                 @if ($candidatura->getPessoa->avatar == null)
                                                     <img src="{{ asset('assets/template/images/users/user_default.jpg') }}"
-                                                        alt="" class="avatar-xs">
+                                                        alt="" class="avatar-xs" width="100%">
                                                 @else
 
                                                     <img src="{{ asset('sysapp/storage/app/public/' . Auth::user()->getPessoa->avatar) }}"
-                                                        alt="" class="avatar-xs">
+                                                        alt="" width="100%" style="border-radius: 50%;" class="">
                                                 @endif
 
                                             </div>
@@ -1397,7 +1397,7 @@
                                                 @endif
 
                                                 @if($solicitacao == null)
-                                                    @if((count($avaliacao_aluno) >= 5 && $nota_final >= 9.5 && $aluno != null && $aluno_formacao->turma_id < 10) || (count($avaliacao_aluno) >= 5 && $nota_final >= 9.5 && $aluno != null && $aluno_formacao->turma_id == 10 && $aluno->id == 1341))
+                                                    @if((count($avaliacao_aluno) >= 5 && $nota_final >= 9.5 && $aluno != null && $aluno_formacao->turma_id < 13))
                                                         <a target="_blank"
                                                             href="{{ route('emitirdec', [$candidatura->hash, $aluno->hash]) }}"
                                                             class="btn btn-success">Clique aqui para emitir a sua declaração</a>

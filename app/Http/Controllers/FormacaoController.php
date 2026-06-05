@@ -547,6 +547,37 @@ class FormacaoController extends Controller
 
         // dd($formandos);
 
+        $contador = 1;
+
+        // inserir os formandos restantes na turma D
+        foreach ($formandos as $cand) {
+
+            set_time_limit(0);
+
+            $conta = Alunoformacao::where('turma_id', 18)->count();
+
+            if ($conta < 100) {
+
+                $aluno_formacao = Alunoformacao::where('aluno_id', $cand->aluno_id)->first();
+                $candidatura = Candidaturaformacao::where('aluno_id', $cand->aluno_id)->first();
+
+                $aluno_formacao->turma_id = 18;
+                $aluno_formacao->formacao_id = 5;
+                $aluno_formacao->save();
+                $candidatura->turma_id = 18;
+                $candidatura->formacao_id = 5;
+                $candidatura->year_id = 4;
+                $candidatura->save();
+
+                echo $contador . ' - ' . $aluno_formacao->getAluno->getPessoa->nome . ' Turma D <br>';
+
+            }
+
+            $contador++;
+        }
+
+        dd('Formandos restantes inseridos na turma D');
+
         // ids de alunos para incluir na Mediateca de Luanda
         $vetor_excecao = [2349, 2208, 2514, 2344, 2453, 2255, 2535];
 
@@ -703,7 +734,7 @@ class FormacaoController extends Controller
     {
 
         $formandos = Alunoformacao::where('turma_id', $id_turma)->get();
-        dd($formandos);
+        // dd($formandos);
 
         $ob = new MailController();
         $cont = 1;
@@ -715,7 +746,7 @@ class FormacaoController extends Controller
             $email = $item->getAluno->getPessoa->email;
             $nome = $item->getAluno->getPessoa->nome;
             // dd($nome);
-            $ob->aberturaTurmaC($email,$nome);
+            $ob->aberturaTurmaD($email, $nome);
 
             echo $cont . ') Email enviado para ' . $nome . ' - ' . $email . '<br>';
             $cont++;
@@ -723,5 +754,24 @@ class FormacaoController extends Controller
         }
 
     }
-    
+
+    public function finalizar_prova($id_turma, $id_disciplina){
+
+        $formandos = Avaliacaoaluno::where('turma_id', $id_turma)->where('disciplina_id', $id_disciplina)->get();
+
+        // dd($formandos);
+
+        foreach ($formandos as $linha) {
+
+            set_time_limit(0);
+
+            if($linha->nota2 != null){
+                $linha->nota1 = $linha->nota2;
+                $linha->notafinal = $linha->nota2;
+                $linha->save();
+            }
+        }
+
+    }
+
 }

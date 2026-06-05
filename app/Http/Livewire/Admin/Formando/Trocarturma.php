@@ -100,6 +100,7 @@ class Trocarturma extends Component
 
                     $this->candidatura->turma_id = $this->turma_id;
                     $this->candidatura->formacao_id = $turma_nova->formacao_id;
+                    $this->candidatura->year_id = $turma_nova->getFormacao->ano_id;
                     $this->candidatura->save();
 
                     $aluno_form->turma_id = $this->turma_id;

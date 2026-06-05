@@ -60,7 +60,7 @@
                                         <div>
                                             <h4 class="fw-bold">{{ $pessoa->nome }}</h4>
                                             <h4 class="fw-bold">CÓDIGO: {{ $aluno->codigo }}</h4>
-                                            <h4 class="fw-bold">DISCIPLINA: {{ $prova->getdisciplina->descricao }}</h4>
+                                            <h4 class="fw-bold">MÓDULO: {{ $prova->getdisciplina->descricao }}</h4>
                                             <h5 class="fw-bold">{{ $prova->nome }}</h5>
                                             <div class="hstack gap-3 flex-wrap">
                                                 <!-- <div><i class="ri-building-line align-bottom me-1"></i>
