@@ -103,7 +103,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-sm-4 mt-2">
+                                        <!-- <div class="col-sm-4 mt-2">
                                             <div class="p-2 border border-dashed rounded bg-marketplace">
                                                 <div class="d-flex align-items-center">
                                                     <div class="avatar-sm me-2">
@@ -118,8 +118,8 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="col-sm-4 mt-2">
+                                        </div> -->
+                                        <!-- <div class="col-sm-4 mt-2">
                                             <div class="p-2 border border-dashed rounded bg-marketplace">
                                                 <div class="d-flex align-items-center">
                                                     <div class="avatar-sm me-2">
@@ -134,7 +134,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> -->
                                         <div class="col-sm-4 mt-2">
                                             <div class="p-2 border border-dashed rounded">
                                                 <div class="d-flex align-items-center text-center">
@@ -192,16 +192,20 @@
 
                                                 $avaliacao = $this->getavaliacao_aluno($item->aluno_id);
                                                 $av_nota2 = $avaliacao->nota2 == null ? 0 : $avaliacao->nota2;
+                                                $av_nota1 = $avaliacao->nota1 == null ? 0 : $avaliacao->nota1;
+
+                                                // $this->nota1 = $av_nota1;
+                                                $this->nota2 = $av_nota2;
                                                 
                                                 $vez++;
 
                                             @endphp
 
-                                            <td scope="col"><input min="0" max="20" value="{{ $avaliacao->nota1 }}" type="number"
+                                            <td scope="col"><input min="0" max="20" value="{{ $av_nota1 }}" type="number"
                                                     wire:model="nota1" class="form-control">
                                             </td>
                                             <td scope="col"><input min="0" max="20"
-                                                    value="{{ $avaliacao->nota2 }}" type="number" wire:model="nota2"
+                                                    value="{{ $av_nota2 }}" disabled type="number" wire:model="nota2"
                                                     class="form-control">
                                             </td>
                                             <td scope="col"><a wire:click="lancar({{$item->aluno_id}})"

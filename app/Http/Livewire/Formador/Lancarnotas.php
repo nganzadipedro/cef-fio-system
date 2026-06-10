@@ -137,9 +137,13 @@ class Lancarnotas extends Component
                 $av->save();
                 
             } else {
-                $av->nota1 = $this->nota1;
-                $av->nota2 = $this->nota2;
-                $av->notafinal = ($this->nota1 + $this->nota2) / 2;
+
+                $nota1 = $this->nota1;
+                $nota2 = $av->nota2;
+
+                $av->nota1 = $nota1;
+                $av->nota2 = $nota2;
+                $av->notafinal = ($nota1 + $nota2) / 2;
                 $av->save();
             }
 
@@ -194,7 +198,7 @@ class Lancarnotas extends Component
     {
         $this->dispatchBrowserEvent('swal2', [
             'title' => $msg,
-            'timer' => 5000,
+            'timer' => 2000,
             'icon' => $icon,
             // 'toast' => true,
             'showConfirmButton' => false,

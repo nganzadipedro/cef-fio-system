@@ -15,7 +15,7 @@ class Dashboard extends Component
     {
         $this->professor = Professor::where('pessoa_id', Auth::user()->pessoa_id)->first();
         $this->turmas = Professorformacao::where('professor_id', $this->professor->id)->get();
-      
+
         return view('dashboard.formador.index')->extends('layouts.app')->section('conteudo');
     }
 }

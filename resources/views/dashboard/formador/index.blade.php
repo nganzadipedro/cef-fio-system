@@ -79,7 +79,7 @@
 
                                             <div class="mt-4">
                                                 @foreach ($turmas as $item)
-                                                    @if ($item->formacao_id >= 3)
+                                                    @if ($item->getTurma->ativo == 'sim')
                                                         <div class="item-turma mb-2">
 
                                                             <h3>{{ $item->getFormacao->nome }}</h3>
@@ -115,7 +115,7 @@
                         <div class="swiper-wrapper">
                             <div class="swiper-slide">
                                 <div class="dash-collection overflow-hidden rounded-top position-relative">
-                                    <img src="{{ asset('assets/template/images/demos/postfio.jpg') }}" alt=""
+                                    <img src="{{ asset('assets/template/images/demos/banner-website.jpg') }}" alt=""
                                         height="300" class="object-cover w-100" />
                                     <div
                                         class="content position-absolute bottom-0 m-2 p-2 start-0 end-0 rounded d-flex align-items-center">
@@ -136,7 +136,7 @@
                             </div>
                             <div class="swiper-slide">
                                 <div class="dash-collection overflow-hidden rounded-top position-relative">
-                                    <img src="{{ asset('assets/template/images/demos/postfio.jpg') }}" alt=""
+                                    <img src="{{ asset('assets/template/images/demos/banner-website2.jpg') }}" alt=""
                                         height="300" class="object-cover w-100" />
                                     <div
                                         class="content position-absolute bottom-0 m-2 p-2 start-0 end-0 rounded d-flex align-items-center">
@@ -157,7 +157,7 @@
                             </div>
                             <div class="swiper-slide">
                                 <div class="dash-collection overflow-hidden rounded-top position-relative">
-                                    <img src="{{ asset('assets/template/images/demos/postfio.jpg') }}" alt=""
+                                    <img src="{{ asset('assets/template/images/demos/banner-website3.jpg') }}" alt=""
                                         height="300" class="object-cover w-100" />
                                     <div
                                         class="content position-absolute bottom-0 m-2 p-2 start-0 end-0 rounded d-flex align-items-center">
@@ -178,7 +178,7 @@
                             </div>
                             <div class="swiper-slide">
                                 <div class="dash-collection overflow-hidden rounded-top position-relative">
-                                    <img src="{{ asset('assets/template/images/demos/postfio.jpg') }}" alt=""
+                                    <img src="{{ asset('assets/template/images/demos/banner-website.jpg') }}" alt=""
                                         height="300" class="object-cover w-100" />
                                     <div
                                         class="content position-absolute bottom-0 m-2 p-2 start-0 end-0 rounded d-flex align-items-center">
