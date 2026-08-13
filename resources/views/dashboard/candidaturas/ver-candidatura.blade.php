@@ -121,7 +121,8 @@
                                                 </div>
                                                 <div class="vr"></div>
                                                 <div><span
-                                                        class="fw-medium">{{ $candidatura->getTurma->descricao  }}</span></div>
+                                                        class="fw-medium">{{ $candidatura->getTurma->descricao  }}</span>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -273,63 +274,59 @@
                                                             <div class="pt-3 border-top border-top-dashed mt-4">
                                                                 <div class="row">
                                                                     <div class="col-lg-3 col-sm-6">
-                                                                       
-                                                                            <p
-                                                                                class="mb-2 text-uppercase fw-medium fs-13">
-                                                                                Data de inscrição:</p>
-                                                                            <h5 class="fs-15 mb-0">
-                                                                                {{ $candidatura->created_at }}
-                                                                            </h5>
-                                                                    
+
+                                                                        <p class="mb-2 text-uppercase fw-medium fs-13">
+                                                                            Data de inscrição:</p>
+                                                                        <h5 class="fs-15 mb-0">
+                                                                            {{ $candidatura->created_at }}
+                                                                        </h5>
+
                                                                     </div>
                                                                     <div class="col-lg-3 col-sm-6">
-                                                                       
-                                                                            <p
-                                                                                class="mb-2 text-uppercase fw-medium fs-13">
-                                                                                Data de actualização:</p>
-                                                                            <h5 class="fs-15 mb-0">
-                                                                                {{ $candidatura->updated_at }}
-                                                                            </h5>
-                                                                       
+
+                                                                        <p class="mb-2 text-uppercase fw-medium fs-13">
+                                                                            Data de actualização:</p>
+                                                                        <h5 class="fs-15 mb-0">
+                                                                            {{ $candidatura->updated_at }}
+                                                                        </h5>
+
                                                                     </div>
                                                                     <div class="col-lg-3 col-sm-6">
-                                                                        
-                                                                            <p
-                                                                                class="mb-2 text-uppercase fw-medium fs-13">
-                                                                                Estado da candidatura:</p>
-                                                                            @if ($candidatura->estado == 'suspenso')
-                                                                                <div class="badge bg-danger fs-12">
-                                                                                    Suspensa</div>
-                                                                            @endif
 
-                                                                            @if ($candidatura->estado == 'pendente')
-                                                                                <div class="badge bg-warning fs-12">
-                                                                                    Pendente</div>
-                                                                            @endif
+                                                                        <p class="mb-2 text-uppercase fw-medium fs-13">
+                                                                            Estado da candidatura:</p>
+                                                                        @if ($candidatura->estado == 'suspenso')
+                                                                            <div class="badge bg-danger fs-12">
+                                                                                Suspensa</div>
+                                                                        @endif
 
-                                                                            @if ($candidatura->estado == 'aprovado')
-                                                                                <div class="badge bg-success fs-12">
-                                                                                    Aprovada</div>
-                                                                            @endif
+                                                                        @if ($candidatura->estado == 'pendente')
+                                                                            <div class="badge bg-warning fs-12">
+                                                                                Pendente</div>
+                                                                        @endif
 
-                                                                       
+                                                                        @if ($candidatura->estado == 'aprovado')
+                                                                            <div class="badge bg-success fs-12">
+                                                                                Aprovada</div>
+                                                                        @endif
+
+
                                                                     </div>
                                                                     <div class="col-lg-3 col-sm-6">
-                                                                        
-                                                                            <p
-                                                                                class="mb-2 text-uppercase fw-medium fs-13">
-                                                                                Pagamento:</p>
-                                                                            @if ($candidatura->pago == 'não pago')
-                                                                                <div class="badge bg-danger fs-12">
-                                                                                    Não Pago</div>
-                                                                            @endif
 
-                                                                            @if ($candidatura->pago == 'pago')
-                                                                                <div class="badge bg-success fs-12">
-                                                                                    Pago</div>
-                                                                            @endif
+                                                                        <p class="mb-2 text-uppercase fw-medium fs-13">
+                                                                            Pagamento:</p>
+                                                                        @if ($candidatura->pago == 'não pago')
+                                                                            <div class="badge bg-danger fs-12">
+                                                                                Não Pago</div>
+                                                                        @endif
 
-                                                                       
+                                                                        @if ($candidatura->pago == 'pago')
+                                                                            <div class="badge bg-success fs-12">
+                                                                                Pago</div>
+                                                                        @endif
+
+
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -1381,33 +1378,16 @@
                                                 <br>
                                                 <br>
 
-                                                @if($solicitacao != null)
-                                                    @if($solicitacao->estado == 'pendente' && ($dia_actual <= $solicitacao->validade_referencia))
-                                                        Ainda não efectuou o pagamento da referência solicitada. Efectue o pagamento.
+                                                @if((count($avaliacao_aluno) >= 5 && $nota_final >= 9.5 && $aluno != null && $aluno_formacao->turma_id < 13))
+                                                    <a target="_blank"
+                                                        href="{{ route('emitirdec', [$candidatura->hash, $aluno->hash]) }}"
+                                                        class="btn btn-success">Clique aqui para emitir a sua declaração</a>
+                                                @else
+                                                    @if(count($avaliacao_aluno) < 5)
+                                                        Caro candidato, não tem todas as notas inseridas na plataforma.
                                                     @endif
-                                                    @if($solicitacao->estado == 'pendente' && ($dia_actual > $solicitacao->validade_referencia))
-                                                        <a wire:click="solicitar_ref_declaracao()" class="btn btn-success">Solicitar
-                                                            Nova Referência de Pagamento</a>
-                                                    @endif
-                                                    @if($solicitacao->estado == 'aprovado' && $aluno != null)
-                                                        <a target="_blank"
-                                                            href="{{ route('emitirdec', [$candidatura->hash, $aluno->hash]) }}"
-                                                            class="btn btn-success">Clique aqui para emitir a sua declaração</a>
-                                                    @endif
-                                                @endif
-
-                                                @if($solicitacao == null)
-                                                    @if((count($avaliacao_aluno) >= 5 && $nota_final >= 9.5 && $aluno != null && $aluno_formacao->turma_id < 13))
-                                                        <a target="_blank"
-                                                            href="{{ route('emitirdec', [$candidatura->hash, $aluno->hash]) }}"
-                                                            class="btn btn-success">Clique aqui para emitir a sua declaração</a>
-                                                    @else
-                                                        @if(count($avaliacao_aluno) < 5)
-                                                            Caro candidato, não tem todas as notas inseridas na plataforma.
-                                                        @endif
-                                                        @if(count($avaliacao_aluno) >= 5 && $nota_final < 9.5)
-                                                            Caro candidato, a sua classificação final não permite emitir a declaração.
-                                                        @endif
+                                                    @if(count($avaliacao_aluno) >= 5 && $nota_final < 9.5)
+                                                        Caro candidato, a sua classificação final não permite emitir a declaração.
                                                     @endif
                                                 @endif
 

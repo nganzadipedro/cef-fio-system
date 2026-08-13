@@ -39,7 +39,7 @@ class LoginController extends Controller
         1 => 'admin.dashboard',
         2 => 'revisor.dashboard',
         3 => 'avaliador.dashboard',
-        4 => 'juri.dashboard',
+        4 => 'revisor.dashboard',
         5 => 'candidato.dashboard',
         6 => 'formador.dashboard'
     ];

@@ -20,6 +20,7 @@ class RouteServiceProvider extends ServiceProvider
     public const HOME = [
         1 => '/painel-admin/dashboard',
         2 => '/painel-revisor/dashboard',
+        4 => '/painel-revisor/dashboard',
         3 => '/painel-avaliador/dashboard',
         5 => '/painel-candidato/dashboard',
         6 => '/painel-formador/dashboard'

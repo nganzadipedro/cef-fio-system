@@ -72,6 +72,7 @@
                 </ul>
             @endif
 
+             {{-- menu para o formador --}}
             @if (Auth::user()->permission_id == 6)
                 <ul class="navbar-nav" id="navbar-nav">
                     <li class="menu-title"><span data-key="t-menu">Menu</span></li>
@@ -113,6 +114,7 @@
                 </ul>
             @endif
 
+            {{-- menu para o revisor --}}
             @if (Auth::user()->permission_id == 2)
                 <ul class="navbar-nav" id="navbar-nav">
                     <li class="menu-title"><span data-key="t-menu">Menu</span></li>
@@ -236,7 +238,6 @@
                 </ul>
             @endif
 
-
             <!-- MENU PARA OS AVALIADORES - CPL -->
             @if (Auth::user()->permission_id == 3)
 
@@ -286,6 +287,121 @@
 
             @endif
 
+            {{-- menu para os revisores provinciais --}}
+            @if (Auth::user()->permission_id == 4)
+                <ul class="navbar-nav" id="navbar-nav">
+                    <li class="menu-title"><span data-key="t-menu">Menu</span></li>
+                    <li class="nav-item">
+                        <a class="nav-link menu-link" href="#sidebarDashboards" data-bs-toggle="collapse" role="button"
+                            aria-expanded="false" aria-controls="sidebarDashboards">
+                            <i class="ri-dashboard-2-line"></i> <span data-key="t-dashboards">Início</span>
+                        </a>
+                        <div class="collapse menu-dropdown" id="sidebarDashboards">
+                            <ul class="nav nav-sm flex-column">
+                                <li class="nav-item">
+                                    <a href="{{ route('revisor.dashboard') }}" class="nav-link" data-key="t-crm">
+                                        Dashboard </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li> <!-- end Dashboard Menu -->
+                    <li class="nav-item">
+                        <a class="nav-link menu-link" href="#sidebarLayouts" data-bs-toggle="collapse" role="button"
+                            aria-expanded="false" aria-controls="sidebarLayouts">
+                            <i class="ri-layout-3-line"></i> <span data-key="t-layouts">Candidaturas</span> <span
+                                class="badge badge-pill bg-danger" data-key="t-hot">Hot</span>
+                        </a>
+                        <div class="collapse menu-dropdown" id="sidebarLayouts">
+                            <ul class="nav nav-sm flex-column">
+
+                                <li class="nav-item">
+                                    <a href="{{ route('candidaturas.pendentes', 'masc') }}" class="nav-link"
+                                        data-key="t-horizontal">Pendentes (Masculino)</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('candidaturas.pendentes', 'fem') }}" class="nav-link"
+                                        data-key="t-horizontal">Pendentes (Femenino)</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('candidaturas.suspensas') }}" class="nav-link"
+                                        data-key="t-horizontal">Suspensas</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('candidaturas.destacadas') }}" class="nav-link"
+                                        data-key="t-horizontal">Destacadas</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('candidaturas.aprovadas') }}" class="nav-link"
+                                        data-key="t-horizontal">Aprovadas</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('candidaturas.pagas') }}" class="nav-link"
+                                        data-key="t-horizontal">Pagas</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('candidaturas.nova.referencia') }}" class="nav-link"
+                                        data-key="t-horizontal">Nova referência de pagamento</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link menu-link" href="#sidebarAuth" data-bs-toggle="collapse" role="button"
+                            aria-expanded="false" aria-controls="sidebarAuth">
+                            <i class="ri-account-circle-line"></i> <span data-key="t-authentication">Formandos</span>
+                        </a>
+                        <div class="collapse menu-dropdown" id="sidebarAuth">
+                            <ul class="nav nav-sm flex-column">
+                                <li class="nav-item">
+                                    <a href="{{ route('revisor.formandos.listar') }}" class="nav-link"
+                                        data-key="t-horizontal">Listar formandos</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('revisor.formandos.declaracoes') }}" class="nav-link"
+                                        data-key="t-horizontal">Declarações emitidas</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('revisor.formandos.turmas') }}" class="nav-link"
+                                        data-key="t-horizontal">Turmas</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('revisor.formandos.trocarturma') }}" class="nav-link"
+                                        data-key="t-horizontal">Trocar de turma</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('revisor.formandos.emitirdeclaracao') }}" class="nav-link"
+                                        data-key="t-horizontal">Emitir Declaração</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('revisor.formandos.validardeclaracao') }}" class="nav-link"
+                                        data-key="t-horizontal">Validar Declaração</a>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link menu-link" href="#sidebarLanding" data-bs-toggle="collapse" role="button"
+                            aria-expanded="false" aria-controls="sidebarLanding">
+                            <i class="ri-rocket-line"></i> <span data-key="t-landing">Usuários</span>
+                        </a>
+                        <div class="collapse menu-dropdown" id="sidebarLanding">
+                            <ul class="nav nav-sm flex-column">
+                                <li class="nav-item">
+                                    <a href="{{ route('revisor.usuarios.candidatos') }}" class="nav-link"
+                                        data-key="t-one-page"> Listar Candidatos
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+
+                </ul>
+            @endif
+
+            <!-- MENU para o administrador geral -->
             @if (Auth::user()->permission_id == 1)
                 <ul class="navbar-nav" id="navbar-nav">
                     <li class="menu-title"><span data-key="t-menu">Menu</span></li>

@@ -17,6 +17,7 @@ class Turma extends Model
     protected $fillable = [
         'descricao',
         'formacao_id',
+        'provincia_id',
         'user_id',
         'modalidade',
         'capacidade'

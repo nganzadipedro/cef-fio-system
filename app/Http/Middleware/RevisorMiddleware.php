@@ -18,7 +18,7 @@ class RevisorMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if (Auth::user()->permission_id != 2) {
+        if (Auth::user()->permission_id != 2 && Auth::user()->permission_id != 4) {
             return redirect(
                 RouteServiceProvider::HOME[
                     Auth::user()->permission_id

@@ -12,6 +12,7 @@ use App\Models\Fio\Emissaodeclaracao;
 use App\Models\Fio\Historicodeclaracao;
 use App\Models\Fio\Perguntaprova;
 use App\Models\Fio\Professor;
+use App\Models\Fio\Prova;
 use App\Models\Fio\Turma;
 use DB;
 use Carbon\Carbon;
@@ -504,6 +505,42 @@ class FormacaoController extends Controller
 
     }
 
+    public function enunciado_prova($prova_id)
+    {
+
+        $prova = Prova::find($prova_id);
+        $perguntas = Perguntaprova::where('prova_id', $prova_id)->get();
+
+        $meses = [
+            '01' => 'Janeiro',
+            '02' => 'Fevereiro',
+            '03' => 'Março',
+            '04' => 'Abril',
+            '05' => 'Maio',
+            '06' => 'Junho',
+            '07' => 'Julho',
+            '08' => 'Agosto',
+            '09' => 'Setembro',
+            '10' => 'Outubro',
+            '11' => 'Novembro',
+            '12' => 'Dezembro'
+        ];
+
+
+        $data_emissao[0] = date("d");
+        $data_emissao[1] = $meses[date("m")];
+        $data_emissao[2] = date("Y");
+
+
+        $pdf = Pdf::loadView('documents-pdf.enunciado-prova', [
+            'prova' => $prova,
+            'perguntas' => $perguntas
+        ]);
+
+        return $pdf->stream();
+
+    }
+
     public function cadastrarPergunta(Request $request)
     {
         //dd($request->all());
@@ -755,7 +792,8 @@ class FormacaoController extends Controller
 
     }
 
-    public function finalizar_prova($id_turma, $id_disciplina){
+    public function finalizar_prova($id_turma, $id_disciplina)
+    {
 
         $formandos = Avaliacaoaluno::where('turma_id', $id_turma)->where('disciplina_id', $id_disciplina)->get();
 
@@ -765,7 +803,7 @@ class FormacaoController extends Controller
 
             set_time_limit(0);
 
-            if($linha->nota2 != null){
+            if ($linha->nota2 != null) {
                 $linha->nota1 = $linha->nota2;
                 $linha->notafinal = $linha->nota2;
                 $linha->save();

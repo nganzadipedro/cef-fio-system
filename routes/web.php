@@ -37,6 +37,7 @@ Route::group(['middleware' => 'guest'], function () {
     Route::get('emitir-declaracao/{id}', 'Controllers\CandidatoController@declaracao');
     Route::get('avaliacao/{id}', 'Controllers\UserController@avaliacao');
     Route::post('gettimeexam/{id}', 'Controllers\Provacontroller@gettimeexam');
+    Route::get('enunciado/{id}', 'Controllers\FormacaoController@enunciado_prova');
     Route::get('provaonline/{hash}', 'Livewire\Candidato\Provalink');
 
     // rotas de busca de informação

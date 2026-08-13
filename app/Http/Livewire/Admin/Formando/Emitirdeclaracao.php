@@ -232,7 +232,6 @@ class Emitirdeclaracao extends Component
 
             $this->mensagemRefresh('Solicitação de referência efectuada com sucesso', 'success');
         }
-
     }
 
     private function mensagem($msg, $icon)

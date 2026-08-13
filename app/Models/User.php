@@ -6,6 +6,7 @@ namespace App\Models;
 
 use App\Models\Enoaa\Permissao;
 use App\Models\Enoaa\Pessoa;
+use App\Models\Fio\Provincia;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -31,6 +32,7 @@ class User extends Authenticatable
         'acesso_fio',
         'ativo',
         'pessoa_id',
+        'provincia_id',
         'password',
         'permission_id'
     ];
@@ -51,6 +53,10 @@ class User extends Authenticatable
 
     public function getPessoa(){
         return $this->belongsTo(Pessoa::class, 'pessoa_id', 'id');
+    }
+
+     public function getProvincia(){
+        return $this->belongsTo(Provincia::class, 'provincia_id', 'id');
     }
 
     /**
