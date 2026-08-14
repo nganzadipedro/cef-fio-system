@@ -6,6 +6,7 @@ use App\Models\Fio\Aluno;
 use App\Models\Fio\Candidaturaformacao;
 use App\Models\Fio\Emissaodeclaracao;
 use App\Models\Fio\Solicitacaodocumento;
+use Auth;
 use Livewire\Component;
 
 class Declaracoes extends Component
@@ -16,10 +17,23 @@ class Declaracoes extends Component
     public function render()
     {
 
-        $this->lista = Emissaodeclaracao::join('aluno', 'emissao_declaracao.aluno_id', 'aluno.id')
-            ->join('pessoas', 'pessoas.id', 'aluno.pessoa_id')
-            ->select('emissao_declaracao.*')
-            ->get();
+        // $this->lista = Emissaodeclaracao::join('aluno', 'emissao_declaracao.aluno_id', 'aluno.id')
+        //     ->join('pessoas', 'pessoas.id', 'aluno.pessoa_id')
+        //     ->select('emissao_declaracao.*')
+        //     ->get();
+
+        $this->lista = Emissaodeclaracao::all();
+
+        if (Auth::user()->permission_id == 4) {
+
+            $this->lista = Emissaodeclaracao::join('aluno', 'emissao_declaracao.aluno_id', 'aluno.id')
+                ->join('pessoas', 'pessoas.id', 'aluno.pessoa_id')
+                ->join('candidatura', 'candidatura.pessoa_id', 'aluno.pessoa_id')
+                ->select('emissao_declaracao.*')
+                ->where('candidatura.prov_formacao_id', Auth::user()->provincia_id)
+                ->get();
+
+        }
 
         $this->homens = 0;
         $this->mulheres = 0;
@@ -36,8 +50,6 @@ class Declaracoes extends Component
 
             }
         }
-
-        $this->lista = Emissaodeclaracao::all();
 
         return view('dashboard.admin.formando.declaracoes')->extends('layouts.app')->section('conteudo');
     }

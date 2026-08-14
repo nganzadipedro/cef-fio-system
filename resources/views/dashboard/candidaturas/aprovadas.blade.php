@@ -60,7 +60,8 @@
                 <table class="table table-hover align-middle table-nowrap mb-0 mt-4 text-center" id="myTable">
                     <thead class="">
                         <tr>
-                            <th scope="col"># / Código</th>
+                            <th scope="col">#</th>
+                            <th scope="col">Código</th>
                             <th scope="col">Candidato</th>
                             <th scope="col">Formação</th>
                             <th scope="col">Nº Documento</th>
@@ -74,7 +75,8 @@
                     <tbody>
                         @foreach ($candidaturas as $item)
                             <tr>
-                                <td scope="col">{{ $loop->index + 1 . ' / ' . $item->codigo }}</td>
+                                <td scope="col">{{ $loop->index + 1 }}</td>
+                                <td scope="col">{{ $item->codigo }}</td>
                                 <td scope="col">{{ $item->getPessoa->nome }}</td>
                                 <td scope="col">
                                     <span class="badge text-bg-primary">{{ $item->getFormacao->nome }}</span>

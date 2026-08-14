@@ -87,8 +87,8 @@
                                 <td scope="col">Pago</td>
                                 <td scope="col">{{ $item->created_at }}</td>
                                 <td class="">
-                                    {{-- <a class="btn btn-sm btn-success" href="{{ route('vercandidatura', $item->hash) }}"
-                                        title="Ver candidatura"><i class="ri-eye-fill "></i></a> --}}
+                                    <a class="btn btn-sm btn-success" href="{{ route('vercandidatura', $item->hash) }}"
+                                        title="Ver candidatura"><i class="ri-eye-fill "></i></a>
                                 </td>
                             </tr>
                         @endforeach

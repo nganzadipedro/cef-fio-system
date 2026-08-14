@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Admin\Usuarios;
 use App\Models\Ano;
 use App\Models\Enoaa\Pessoa;
 use App\Models\User;
+use Auth;
 use Livewire\Component;
 
 class Candidatos extends Component
@@ -22,6 +23,17 @@ class Candidatos extends Component
             where('permission_id', 5)
             ->whereNull('deleted_at')
             ->get();
+
+
+        if (Auth::user()->permission_id == 4) {
+
+            $this->usuarios = User::
+                where('permission_id', 5)
+                ->where('provincia_id', Auth::user()->provincia_id)
+                ->whereNull('deleted_at')
+                ->get();
+
+        }
 
         $this->homens = 0;
         $this->mulheres = 0;
@@ -42,13 +54,13 @@ class Candidatos extends Component
         return view('dashboard.admin.usuarios.listar-candidatos')->extends('layouts.app')->section('conteudo');
     }
 
-    public function eliminado($id){
+    public function eliminado($id)
+    {
 
         $pes = Pessoa::find($id);
-        if($pes){
+        if ($pes) {
             return 'true';
-        }
-        else{
+        } else {
             return 'false';
         }
 

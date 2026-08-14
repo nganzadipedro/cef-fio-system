@@ -327,10 +327,6 @@
                                         data-key="t-horizontal">Suspensas</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{ route('candidaturas.destacadas') }}" class="nav-link"
-                                        data-key="t-horizontal">Destacadas</a>
-                                </li>
-                                <li class="nav-item">
                                     <a href="{{ route('candidaturas.aprovadas') }}" class="nav-link"
                                         data-key="t-horizontal">Aprovadas</a>
                                 </li>
