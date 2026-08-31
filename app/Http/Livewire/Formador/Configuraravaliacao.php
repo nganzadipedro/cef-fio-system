@@ -16,6 +16,7 @@ class Configuraravaliacao extends Component
 {
 
     public $turmas = array();
+    public $lista = array();
 
     public $professor;
     public $disciplina_id;
@@ -30,8 +31,10 @@ class Configuraravaliacao extends Component
 
     public function render()
     {
+
         $this->professor = Professor::where('pessoa_id', Auth::user()->pessoa_id)->first();
         $this->turmas = Professorformacao::where('professor_id', $this->professor->id)->orderBy('id', 'desc')->get();
+        $this->lista = Sistemaavaliacao::where('professor_id', $this->professor->id)->get();
         return view('dashboard.formador.configurar-avaliacao')->extends('layouts.app')->section('conteudo');
     }
 
@@ -54,25 +57,40 @@ class Configuraravaliacao extends Component
                 $this->mensagem('Já existe uma configuração para esta turma', 'warning');
             } else {
 
-                $registo = Sistemaavaliacao::create([
-                    'disciplina_id' => $this->disciplina_id,
-                    'criterio_resultado_final' => $this->criterio_resultado_final,
-                    'qtd_notas_lancar' => $this->qtd_notas_lancar,
-                    'qtd_provas' => 1,
-                    'percent_nota1' => $this->percent_nota1,
-                    'percent_nota2' => $this->percent_nota2,
-                    'prov_seg_nota' => $this->prov_seg_nota,
-                    'tipo_prova' => $this->tipo_prova,
-                    'professor_id' => $this->professor->id,
-                    'turma_id' => $this->turma_id,
-                    'user_id' => Auth::id()
-                ]);
+                if ($this->qtd_notas_lancar == 2 && $this->prov_seg_nota == '') {
+                    $this->mensagem('Selecione a proveniência da 2ª nota', 'warning');
+                } else if ($this->qtd_notas_lancar == 2 && $this->criterio_resultado_final == '') {
+                    $this->mensagem('Selecione a fórmula de obtenção da nota final', 'warning');
+                } else if ($this->criterio_resultado_final == 'criterio-percentual' && $this->percent_nota1 == '') {
+                    $this->mensagem('Digite a percentagem para a primeira nota', 'warning');
+                } else if ($this->criterio_resultado_final == 'criterio-percentual' && $this->percent_nota2 == '') {
+                    $this->mensagem('Digite a percentagem para a segunda nota', 'warning');
+                } else if (($this->percent_nota1 + $this->percent_nota2) != 100) {
+                    $this->mensagem('O total das percentagens deve ser 100%', 'warning');
+                } else {
 
-                $registo->hash = md5($registo->created_at . $registo->id);
-                $registo->save();
+                    $registo = Sistemaavaliacao::create([
+                        'disciplina_id' => $this->disciplina_id,
+                        'criterio_resultado_final' => $this->criterio_resultado_final,
+                        'qtd_notas_lancar' => $this->qtd_notas_lancar,
+                        'qtd_provas' => 1,
+                        'percent_nota1' => $this->percent_nota1,
+                        'percent_nota2' => $this->percent_nota2,
+                        'prov_seg_nota' => $this->prov_seg_nota,
+                        'tipo_prova' => $this->tipo_prova,
+                        'professor_id' => $this->professor->id,
+                        'turma_id' => $this->turma_id,
+                        'user_id' => Auth::id()
+                    ]);
 
-                $this->mensagemRefresh('Configuração adicionada com sucesso', 'success');
-                $this->limpar();
+                    $registo->hash = md5($registo->created_at . $registo->id);
+                    $registo->save();
+
+                    $this->mensagemRefresh('Configuração adicionada com sucesso', 'success');
+                    $this->limpar();
+
+                }
+
             }
 
 
