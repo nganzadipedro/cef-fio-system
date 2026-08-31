@@ -10,7 +10,7 @@ use App\Models\Fio\Turma;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
-class Lancarnotas extends Component
+class Editarnotas extends Component
 {
 
     public $turma_id;
@@ -29,9 +29,9 @@ class Lancarnotas extends Component
         $this->turma_id = $id_turma;
         $this->turma = Turma::find($this->turma_id);
     }
+
     public function render()
     {
-
         $this->professor = Professor::where('pessoa_id', Auth::user()->pessoa_id)->first();
         $pf = Professorformacao::where('professor_id', $this->professor->id)->where('turma_id', $this->turma_id)->first();
         $this->disciplina_id = $pf->disciplina_id;
@@ -65,86 +65,10 @@ class Lancarnotas extends Component
             ->whereNull('notafinal')
             ->whereNull('nota2')->count();
 
-        return view('dashboard.formador.lancar-notas')->extends('layouts.app')->section('conteudo');
+        return view('dashboard.formador.editar-notas')->extends('layouts.app')->section('conteudo');
     }
 
-    public function colocaalunos_avaliacao()
-    {
-
-        $alunos = Alunoformacao::where('turma_id', $this->turma_id)->get();
-
-        foreach ($alunos as $item) {
-            $av = Avaliacaoaluno::create([
-                'turma_id' => $this->turma_id,
-                'disciplina_id' => $this->disciplina_id,
-                'aluno_id' => $item->aluno_id,
-                'formacao_id' => $item->formacao_id
-            ]);
-        }
-
-    }
-
-    public function lancar($aluno_id)
-    {
-
-        if ($this->nota1 === null) {
-            $this->mensagem('Digite a primeira nota', 'warning');
-        } else if ($this->nota1 < 0 || $this->nota1 > 20) {
-            $this->mensagem('Inseriu uma nota inválida', 'warning');
-        } else if ($this->nota2 === null) {
-            $this->mensagem('Digite a segunda nota', 'warning');
-        } else if ($this->nota2 < 0 || $this->nota2 > 20) {
-            $this->mensagem('Inseriu uma nota inválida', 'warning');
-        } else {
-
-            $av = Avaliacaoaluno::where('aluno_id', $aluno_id)
-                ->where('turma_id', $this->turma_id)
-                ->where('disciplina_id', $this->disciplina_id)->first();
-
-            // customização para multidisciplinares 
-            if ($this->disciplina_id == 4) {
-                $av->nota1 = $this->nota1;
-                $av->nota2 = $this->nota2;
-                $av->notafinal = ($this->nota1 + $this->nota2);
-                $av->save();
-
-            // customização para processo civil
-            } else if ($this->disciplina_id == 2) {
-                
-                $nota2 = $av->nota2;
-                if($av->nota2 > 20){
-                    $nota2 = 20;
-                }
-                
-                $res = ($this->nota1) + ($nota2 * 0.45);
-                if($res > 20){
-                    $res = 20;
-                }
-                
-                $av->nota1 = $this->nota1;
-                $av->nota2 = $nota2;
-                $av->notafinal = $res;
-                $av->save();
-                
-            } else {
-
-                $nota1 = $this->nota1;
-                $nota2 = $av->nota2;
-
-                $av->nota1 = $nota1;
-                $av->nota2 = $nota2;
-                $av->notafinal = ($nota1 + $nota2) / 2;
-                $av->save();
-            }
-
-            $this->nota1 = null;
-            $this->nota2 = null;
-
-            $this->mensagem('Salvo com sucesso', 'success');
-        }
-
-    }
-
+    
     public function jatemnota($aluno_id)
     {
 
@@ -183,18 +107,4 @@ class Lancarnotas extends Component
         }
 
     }
-
-    private function mensagem($msg, $icon)
-    {
-        $this->dispatchBrowserEvent('swal2', [
-            'title' => $msg,
-            'timer' => 2000,
-            'icon' => $icon,
-            // 'toast' => true,
-            'showConfirmButton' => false,
-            'timerProgressBar' => true,
-            'position' => 'center'
-        ]);
-    }
-
 }

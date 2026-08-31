@@ -16,7 +16,7 @@
     </div>
     <div class="row mt-4">
         <div class="col-lg-12">
-            <div class="card rounded-0 bg-soft-success mx-n4 mt-n4 border-top">
+            <div class="card rounded-0 bg-soft-primary mx-n4 mt-n4 border-top">
                 <div class="px-2">
                     <div class="row">
                         <div class="col-xxl-12 align-self-center text-center">
@@ -25,7 +25,7 @@
                                 <lord-icon src="https://cdn.lordicon.com/cgzlioyf.json" trigger="hover" stroke="light"
                                     style="width:130px;height:130px">
                                 </lord-icon>
-                                <h5 class="display-6">FORMULÁRIO DE LANÇAMENTO DE NOTAS</h5>
+                                <h5 class="display-6">FORMULÁRIO DE CORREÇÃO DE NOTAS</h5>
                                 <H4>{{ $turma->getFormacao->nome }} | {{ $turma->descricao }}</H4>
                             </div>
                         </div>
@@ -147,7 +147,6 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        
 
                                     </div>
                                 </div>
@@ -160,10 +159,6 @@
             </div>
         </div>
         <div class="live-preview">
-
-            @php
-                $vez = 1;
-            @endphp
 
             <div style="height: 500px; overflow: auto;">
                 <div class="table-responsive mt-4 mt-xl-0">
@@ -181,43 +176,32 @@
                         </thead>
                         <tbody>
                             @foreach ($alunos_turma as $item)
-                                @if ($this->jatemnota($item->aluno_id) == false)
+                                @if ($this->jatemnota($item->aluno_id) == true)
                                     <tr>
                                         <td scope="col">{{ $loop->index + 1 }}</td>
                                         <td scope="col">{{ $item->aluno_id }}</td>
                                         <td scope="col">{{ $item->getAluno->codigo }}</td>
                                         <td scope="col">{{ $item->getAluno->getPessoa->nome }}</td>
-                                        @if($vez == 1)
 
-                                            @php
 
-                                                $avaliacao = $this->getavaliacao_aluno($item->aluno_id);
-                                                $av_nota2 = $avaliacao->nota2 == null ? 0 : $avaliacao->nota2;
-                                                $av_nota1 = $avaliacao->nota1 == null ? 0 : $avaliacao->nota1;
+                                        @php
 
-                                                // $this->nota1 = $av_nota1;
-                                                $this->nota2 = $av_nota2;
+                                            $avaliacao = $this->getavaliacao_aluno($item->aluno_id);
+                                            $av_nota2 = $avaliacao->nota2 == null ? 0 : $avaliacao->nota2;
+                                            $av_nota1 = $avaliacao->nota1 == null ? 0 : $avaliacao->nota1;
 
-                                                $vez++;
+                                        @endphp
 
-                                            @endphp
+                                        <td scope="col"><input min="0" max="20" value="{{ $av_nota1 }}" type="number"
+                                                class="form-control">
+                                        </td>
+                                        <td scope="col"><input min="0" max="20" value="{{ $av_nota2 }}" type="number"
+                                                class="form-control">
+                                        </td>
+                                        <td scope="col"><a wire:click="lancar({{$item->aluno_id}})"
+                                                class="btn btn-success">Salvar</a>
+                                        </td>
 
-                                            <td scope="col"><input min="0" max="20" value="{{ $av_nota1 }}" type="number"
-                                                    wire:model="nota1" class="form-control">
-                                            </td>
-                                            <td scope="col"><input min="0" max="20" value="{{ $av_nota2 }}" disabled type="number"
-                                                    wire:model="nota2" class="form-control">
-                                            </td>
-                                            <td scope="col"><a wire:click="lancar({{$item->aluno_id}})"
-                                                    class="btn btn-success">Salvar</a>
-                                            </td>
-                                        @else
-                                            <td scope="col"><input min="0" max="20" type="number" disabled class="form-control">
-                                            </td>
-                                            <td scope="col"><input min="0" max="20" type="number" disabled class="form-control">
-                                            </td>
-                                            <td scope="col"></td>
-                                        @endif
                                     </tr>
                                 @endif
 

@@ -21,13 +21,13 @@ Route::group(['middleware' => 'guest'], function () {
     Route::get('login', 'Controllers\Auth\LoginController@showLoginForm')->name('login');
     Route::get('candidatura', 'Controllers\Auth\LoginController@showRegisterForm')->name('register');
     Route::get('candidatura/enoaa', 'Controllers\Auth\LoginController@showRegisterFormEnoaa')->name('register.enoaa');
-    Route::get('referencias',  'Controllers\UserController@referencias_espec');
-    Route::get('unica-referencia/{id}',  'Controllers\UserController@unica_referencia');
-    Route::get('credenciais/{id}',  'Controllers\UserController@eliminaduplicado');
-    Route::get('mensagens/{idturma}',  'Controllers\FormacaoController@smsWhatsapp');
-    Route::get('email/{idturma}',  'Controllers\FormacaoController@enviarEmail');
-    Route::get('pagou/{id}',  'Controllers\UserController@transformar_pago');
-    Route::get('finalizarprova/{id}',  'Controllers\ProvaController@finalizar_prova');
+    Route::get('referencias', 'Controllers\UserController@referencias_espec');
+    Route::get('unica-referencia/{id}', 'Controllers\UserController@unica_referencia');
+    Route::get('credenciais/{id}', 'Controllers\UserController@eliminaduplicado');
+    Route::get('mensagens/{idturma}', 'Controllers\FormacaoController@smsWhatsapp');
+    Route::get('email/{idturma}', 'Controllers\FormacaoController@enviarEmail');
+    Route::get('pagou/{id}', 'Controllers\UserController@transformar_pago');
+    Route::get('finalizarprova/{id}', 'Controllers\ProvaController@finalizar_prova');
     Route::get('notas', 'Controllers\UserController@verifica_codigos_repetidos');
     Route::get('trata-dados', 'Controllers\FormacaoController@distribuir_alunos');
     Route::get('finaliza-prova/{idturma}/{iddiscip}', 'Controllers\FormacaoController@finalizar_prova');
@@ -67,7 +67,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/visualizar/mini-pauta/{discip}/{turma}/{prof}', 'Controllers\FormacaoController@mini_pauta')->name('mini_pauta');
     Route::get('/visualizar/mini-pauta-turma/{turma}', 'Controllers\FormacaoController@mini_pauta_turma')->name('mini_pauta_turma');
     Route::get('/emitir-declaracao/{cand}/{aluno}', 'Controllers\FormacaoController@declaracao')->name('emitirdec');
-   
+
     Route::post('/updateCandidatura', 'Controllers\CandidatoController@updateCandidatura')->name('updateCandidatura');
 
 
@@ -118,7 +118,7 @@ Route::group(['middleware' => 'auth'], function () {
                 Route::get('/declaracoes', 'Livewire\Admin\Formando\Declaracoes')->name('declaracoes');
                 Route::get('/emitir-declaracao', 'Livewire\Admin\Formando\Emitirdeclaracao')->name('emitirdeclaracao');
                 Route::get('/validar-declaracao', 'Livewire\Admin\Formando\Validardeclaracao')->name('validardeclaracao');
-            
+
             });
 
             Route::prefix('usuarios')->name('usuarios.')->group(function () {
@@ -201,7 +201,7 @@ Route::group(['middleware' => 'auth'], function () {
 
             });
 
-            
+
             Route::prefix('usuarios')->name('usuarios.')->group(function () {
                 Route::get('/cadastrar', 'Livewire\Admin\Usuarios\Cadastrar')->name('cadastrar');
                 Route::get('/listar', 'Livewire\Admin\Usuarios\Listar')->name('listar');
@@ -220,6 +220,9 @@ Route::group(['middleware' => 'auth'], function () {
             Route::get('/dashboard', 'Livewire\Formador\Dashboard')->name('dashboard');
             Route::get('/ver-turma/{id_turma}', 'Livewire\Admin\Formando\Verturma')->name('verturma');
             Route::get('/lancar-notas/{id_turma}', 'Livewire\Formador\Lancarnotas')->name('lancarnota');
+            Route::get('/editar-notas/{id_turma}', 'Livewire\Formador\Editarnotas')->name('editarnota');
+            Route::get('/configurar-avalicao', 'Livewire\Formador\Configuraravaliacao')->name('configavaliacao');
+
         });
     });
 
@@ -232,7 +235,7 @@ Route::group(['middleware' => 'auth'], function () {
             Route::get('/dashboard', 'Livewire\Avaliador\Dashboard')->name('dashboard');
 
             Route::prefix('formandos')->name('formandos.')->group(function () {
-          
+
                 Route::get('/listar', 'Livewire\Admin\Formando\Listar')->name('listar');
                 Route::get('/declaracoes', 'Livewire\Admin\Formando\Declaracoes')->name('declaracoes');
                 Route::get('/validar-declaracao', 'Livewire\Admin\Formando\Validardeclaracao')->name('validardeclaracao');

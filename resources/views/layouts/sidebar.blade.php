@@ -79,7 +79,7 @@
                     <li class="nav-item">
                         <a class="nav-link menu-link" href="#sidebarDashboards" data-bs-toggle="collapse" role="button"
                             aria-expanded="false" aria-controls="sidebarDashboards">
-                            <i class="ri-dashboard-2-line"></i> <span data-key="t-dashboards">Início</span>
+                            <i class="ri-dashboard-line"></i> <span data-key="t-dashboards">Início</span>
                         </a>
                         <div class="collapse menu-dropdown" id="sidebarDashboards">
                             <ul class="nav nav-sm flex-column">
@@ -95,7 +95,7 @@
                     <li class="nav-item">
                         <a class="nav-link menu-link" href="#sidebarAuth" data-bs-toggle="collapse" role="button"
                             aria-expanded="false" aria-controls="sidebarAuth">
-                            <i class="ri-account-circle-line"></i> <span data-key="t-authentication">Provas</span>
+                            <i class="ri-file-paper-line"></i> <span data-key="t-authentication">Provas</span>
                         </a>
                         <div class="collapse menu-dropdown" id="sidebarAuth">
                             <ul class="nav nav-sm flex-column">
@@ -108,6 +108,20 @@
                                         data-key="t-horizontal">Listar provas</a>
                                 </li>
 
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link menu-link" href="#sidebarAuth" data-bs-toggle="collapse" role="button"
+                            aria-expanded="false" aria-controls="sidebarAuth">
+                            <i class="ri-file-settings-line"></i> <span data-key="t-authentication">Sistemas de Avaliação</span>
+                        </a>    
+                        <div class="collapse menu-dropdown" id="sidebarAuth">
+                            <ul class="nav nav-sm flex-column">
+                                <li class="nav-item">
+                                    <a href="{{ route('formador.configavaliacao') }}" class="nav-link"
+                                        data-key="t-horizontal">Configurar</a>
+                                </li>
                             </ul>
                         </div>
                     </li>

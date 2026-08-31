@@ -1,19 +1,19 @@
 <div>
-<div class="row">
-    <div class="col-12">
-        <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-            <h4 class="mb-sm-0">{{ $turma->descricao }}</h4>
+    <div class="row">
+        <div class="col-12">
+            <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                <h4 class="mb-sm-0">{{ $turma->descricao }}</h4>
 
-            <div class="page-title-right">
-                <ol class="breadcrumb m-0">
-                    <li class="breadcrumb-item"><a href="javascript: void(0);">CEF-OAA</a></li>
-                    <li class="breadcrumb-item active">Turmas</li>
-                </ol>
+                <div class="page-title-right">
+                    <ol class="breadcrumb m-0">
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">CEF-OAA</a></li>
+                        <li class="breadcrumb-item active">Turmas</li>
+                    </ol>
+                </div>
+
             </div>
-
         </div>
     </div>
-</div>
     <div class="row text-bolt">
         <div class="col-12">
             <div class="row">
@@ -129,29 +129,37 @@
                                         <h5 class="mt-3">Mais opções</h5>
                                         <div class="row text-center mt-2">
 
-                                                <div class="col-sm-3">
-                                                    <a class="btn btn-lg btn-primary"
-                                                        href="{{ route('exportarlista', $turma->id) }}">Exportar Lista Excel
-                                                    </a>
-                                                </div>
-                                           
-                                                <!-- <div class="col-sm-3">
+                                            <div class="col-sm-3">
+                                                <a class="btn btn-lg btn-primary"
+                                                    href="{{ route('exportarlista', $turma->id) }}">Exportar Lista Excel
+                                                </a>
+                                            </div>
+
+                                            <!-- <div class="col-sm-3">
                                                     <button  class="btn btn-lg btn-success">Ver Lista de Presença <i
                                                             class="ri-checkbox-circle-line"></i></button>
                                                 </div> -->
-                                          
-                                                @if(Auth::user()->permission_id != 2)
+
+                                            @if(Auth::user()->permission_id != 2)
                                                 <div class="col-sm-3">
-                                                    <a href="{{ route('formador.lancarnota', $turma->id) }}" class="btn btn-lg btn-warning">Lançar Notas <i
+                                                    <a href="{{ route('formador.lancarnota', $turma->id) }}"
+                                                        class="btn btn-lg btn-warning">Lançar Notas <i
                                                             class="ri-edit-box-line"></i></a>
                                                 </div>
-                                                @endif
-                                         
+
                                                 <div class="col-sm-3">
-                                                    <a target="_blank" href="{{ route('mini_pauta_turma', $turma->id) }}" class="btn btn-lg btn-info">Mini Pauta Geral</a>
+                                                    <a href="{{ route('formador.editarnota', $turma->id) }}"
+                                                        class="btn btn-lg btn-warning">Editar Notas <i
+                                                            class="ri-edit-box-line"></i></a>
                                                 </div>
-                                                
-                                          
+                                            @endif
+
+                                            <div class="col-sm-3">
+                                                <a target="_blank" href="{{ route('mini_pauta_turma', $turma->id) }}"
+                                                    class="btn btn-lg btn-info">Mini Pauta Geral</a>
+                                            </div>
+
+
                                         </div>
                                         <!-- end col -->
                                     </div>
@@ -168,60 +176,59 @@
             <div class="accordion custom-accordionwithicon accordion-secondary" id="accordionWithicon">
                 <div class="accordion-item">
                     <h2 class="accordion-header" id="accordionwithiconExample1">
-                        <button class="accordion-button fw-semibold collapsed" type="button"
-                            data-bs-toggle="collapse" data-bs-target="#accor_iconExamplecollapse1"
-                            aria-expanded="false" aria-controls="accor_iconExamplecollapse1">
+                        <button class="accordion-button fw-semibold collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#accor_iconExamplecollapse1" aria-expanded="false"
+                            aria-controls="accor_iconExamplecollapse1">
                             <i class="ri-edit-2-line me-2"></i> Lista dos formandos
                         </button>
                     </h2>
                     <div id="accor_iconExamplecollapse1" class="accordion-collapse collapse"
-                        aria-labelledby="accordionwithiconExample1" data-bs-parent="#accordionWithicon"
-                        style="">
+                        aria-labelledby="accordionwithiconExample1" data-bs-parent="#accordionWithicon" style="">
                         <div class="accordion-body">
 
-                          
-                                <div class="table-responsive mt-4 mt-xl-0">
-                                    <table class="table table-info table-striped table-nowrap align-middle mb-0"
-                                        id="myTable">
-                                        <thead>
+
+                            <div class="table-responsive mt-4 mt-xl-0">
+                                <table class="table table-info table-striped table-nowrap align-middle mb-0"
+                                    id="myTable">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">ID</th>
+                                            <th scope="col">Nome</th>
+                                            <th scope="col">Código</th>
+                                            <th scope="col">Nº Cédula</th>
+                                            <th scope="col">Turma</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($alunos_turma as $item)
                                             <tr>
-                                                <th scope="col">#</th>
-                                                <th scope="col">ID</th>
-                                                <th scope="col">Nome</th>
-                                                <th scope="col">Código</th>
-                                                <th scope="col">Nº Cédula</th>
-                                                <th scope="col">Turma</th>
-                                             
+                                                <td scope="col">{{ $loop->index + 1 }}</td>
+                                                <td scope="col">{{ $item->id }}</td>
+                                                <td scope="col">{{ $item->getAluno->getPessoa->nome }}</td>
+                                                <td scope="col">{{ $item->getAluno->codigo }}</td>
+                                                <td scope="col">{{ $item->getAluno->num_cedula_advogado }}</td>
+                                                <td scope="col">{{ $turma->descricao }}</td>
                                             </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach ($alunos_turma as $item)
-                                                <tr>
-                                                    <td scope="col">{{ $loop->index + 1 }}</td>
-                                                    <td scope="col">{{ $item->id }}</td>
-                                                    <td scope="col">{{ $item->getAluno->getPessoa->nome }}</td>
-                                                    <td scope="col">{{ $item->getAluno->codigo }}</td>
-                                                    <td scope="col">{{ $item->getAluno->num_cedula_advogado }}</td>
-                                                    <td scope="col">{{ $turma->descricao }}</td>
-                                                </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
-                                </div>
-                
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+
 
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-       
+
     </div>
 
     @section('script-aux')
-    <script>
-        $(document).ready(function() {
-            $('#myTable').DataTable();
-        });
-    </script>
-@endsection
+        <script>
+            $(document).ready(function () {
+                $('#myTable').DataTable();
+            });
+        </script>
+    @endsection

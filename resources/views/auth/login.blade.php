@@ -1,159 +1,106 @@
-<!doctype html>
-<html lang="en" data-layout="twocolumn" data-sidebar="light" data-sidebar-size="lg" data-sidebar-image="none"
-    data-preloader="disable">
+<!DOCTYPE html>
+<html lang="pt-AO">
 
 <head>
-
-    <meta charset="utf-8" />
-    <title>Plataforma de Inscrição - CEF | Acesso</title>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta content="CEFONLINE" name="description" />
-    <meta content="Themesbrand" name="author" />
-
+    <title>Plataforma de Inscrição - CEF | Acesso</title>
+    <meta content="CEF-OAA" name="description" />
+    <meta content="CEF-OAA" name="author" />
     <!-- link do favicon -->
     <link rel="shortcut icon" href="{{ asset('assets/system/favicon.ico') }}">
-
-    <!-- Layout config Js -->
-    <script src="{{ asset('assets/template/js/layout.js') }}"></script>
-    <!-- Bootstrap Css -->
-    <link href="{{ asset('assets/template/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
-    <!-- Icons Css -->
-    <link href="{{ asset('assets/template/css/icons.min.css') }}" rel="stylesheet" type="text/css" />
-    <!-- App Css-->
-    <link href="{{ asset('assets/template/css/app.min.css') }}" rel="stylesheet" type="text/css" />
-    <!-- custom Css-->
-    <link href="{{ asset('assets/template/css/custom.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/system/css/login.css') }}" rel="stylesheet" type="text/css" />
-
-
 </head>
 
 <body>
 
+    <div class="stage">
 
-    <div class="auth-page-wrapper pt-5">
+        <!-- <div class="watermark" aria-hidden="true">
+            <svg viewBox="0 0 600 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <line x1="300" y1="60" x2="300" y2="520" stroke="#f2b705" stroke-width="4" />
+                <line x1="130" y1="130" x2="470" y2="130" stroke="#f2b705" stroke-width="4" />
+                <circle cx="300" cy="90" r="18" stroke="#f2b705" stroke-width="4" />
+                <line x1="130" y1="130" x2="80" y2="270" stroke="#f2b705" stroke-width="3" />
+                <line x1="130" y1="130" x2="180" y2="270" stroke="#f2b705" stroke-width="3" />
+                <path d="M50 270 Q115 340 180 270" stroke="#f2b705" stroke-width="4" />
+                <line x1="470" y1="130" x2="420" y2="270" stroke="#f2b705" stroke-width="3" />
+                <line x1="470" y1="130" x2="520" y2="270" stroke="#f2b705" stroke-width="3" />
+                <path d="M390 270 Q455 340 520 270" stroke="#f2b705" stroke-width="4" />
+                <path d="M220 520 L380 520 L360 560 L240 560 Z" stroke="#f2b705" stroke-width="4" />
+                <line x1="300" y1="480" x2="300" y2="520" stroke="#f2b705" stroke-width="4" />
+                <line x1="180" y1="480" x2="420" y2="480" stroke="#f2b705" stroke-width="4" />
+            </svg>
+        </div> -->
 
-        <div class="col-lg-12">
-            <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-                    <img src="{{ asset('assets/system/logos/logo_oaa_cor.png') }}" alt="" width="100px" height="100px">
-                </div>
+        <div class="brand">
+            <img src="{{ asset('assets/system/logos/logo_oaa_cor.png') }}" alt="" width="100px" height="100px">
+            <div class="brand-text">
+                <div class="org">Ordem dos Advogados de Angola</div>
+                <div class="sub">Centro de Estudos e Formação</div>
             </div>
-
-            <div class="row mt-3">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-                    <h2 class="title-page">Centro de Estudos e Formação - OAA</h2> <br>
-
-                    <h2 class="subtitle">Bem-Vindo à Plataforma de Gestão da Formação Inicial Obrigatória</h2>
-                </div>
-            </div>
-
-
         </div>
 
-        <!-- auth page content -->
-        <div class="auth-page-content">
-            <div class="container">
-
-                <div class="row justify-content-center ">
-                    <div class="col-md-8 col-lg-6 col-xl-5 caixa ">
-                        <div class="card mt-4 ">
-
-                            <div class="card-body p-4 ">
-                                <div class="text-center mt-2">
-
-                                    <p class="">Digite as suas credenciais de acesso</p>
-                                </div>
-                                <div class="">
-                                    <form action="{{ route('login') }}" method="POST">
-
-                                        @csrf
-
-                                        <div class="mb-3">
-                                            <label for="username" class="form-label">Email</label>
-                                            <input type="text" name="email" class="form-control" id="username"
-                                                placeholder="Digite o seu email">
-                                        </div>
-
-                                        <div class="mb-3">
-                                            <div class="float-end">
-
-                                            </div>
-                                            <label class="form-label" for="password-input">Senha</label>
-                                            <div class="position-relative auth-pass-inputgroup mb-3">
-                                                <input type="password" class="form-control pe-5 password-input"
-                                                    placeholder="Digite a senha" name="password" id="password-input">
-                                                <button
-                                                    class="btn btn-link position-absolute end-0 top-0 text-decoration-none text-muted password-addon"
-                                                    type="button" id="password-addon"><i
-                                                        class="ri-eye-fill align-middle"></i></button>
-                                            </div>
-                                        </div>
-
-                                        <!-- <div class="mb-3 text-center">
-                                            <a href="#"
-                                                class="text-muted text-decoration-underline">Esqueci a minha
-                                                senha</a>
-                                        </div> -->
-
-                                        @if ($errors->has('error'))
-                                            <br>
-                                            <div class="text-danger text-center" role="alert">
-                                                <strong>Email ou Senha incorrectos!</strong>
-                                            </div>
-                                        @endif
-
-
-                                        <div class="mt-4 text-center">
-                                            <button class="btn-access" type="submit">Acessar</button>
-                                        </div>
-                                    </form>
-                                </div>
-
-
-                                @if (session()->has('message'))
-                                    <br>
-                                    <br>
-                                    <h5 class="text-success text-center">
-                                        <strong>{{ session('message') }}</strong>
-                                    </h5>
-                                    <br>
-                                @endif
-                            </div>
-                            <!-- end card body -->
-                        </div>
-                        <!-- end card -->
-
-                        <div class="mt-4 text-center">
-                            <p class="mb-0">Ainda não inscreveu-se? <br> <a href="{{ route('register') }}"
-                                    class="fw-bold text-warning text-decoration-underline">Clique aqui para inscrever-se</a> </p>
-                        </div>
-
-                    </div>
-                </div>
-                <!-- end row -->
+        <div class="panel">
+            <div class="panel-top">
+                <div class="bar"></div>
+                <span>Plataforma de Gestão da Formação Inicial Obrigatória</span>
             </div>
-            <!-- end container -->
+
+            <h2>Aceda a Plataforma</h2>
+            <p class="lede">Digite as suas credenciais de acesso.</p>
+
+            @if ($errors->has('error'))
+                <br>
+                <br>
+                <div class="error-msg" id="errorMsg">Email ou palavra-passe incorrectos. Tente novamente.</div>
+            @endif
+
+            <form id="loginForm" action="{{ route('login') }}" method="POST">
+
+                @csrf
+
+                <div class="field">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="nome@exemplo.co.ao" required
+                        autocomplete="username">
+                </div>
+
+                <div class="field password">
+                    <label for="password">Palavra-passe</label>
+                    <input type="password" id="password" name="password" placeholder="••••••••" required
+                        autocomplete="current-password">
+                    <button type="button" class="toggle-visibility" id="toggleBtn">mostrar</button>
+                </div>
+
+                <div class="row-between">
+                    <a href="#" class="forgot-link">Esqueceu a palavra-passe?</a>
+                </div>
+
+                <button type="submit" class="btn-primary">Entrar</button>
+            </form>
+
+            <div class="divider">Ainda não fez a sua inscrição?</div>
+
+            <div class="signup-box">
+                Submeta a sua candidatura.
+                <br>
+                <a href="{{ route('register') }}">Iniciar candidatura →</a>
+            </div>
         </div>
-        <!-- end auth page content -->
 
     </div>
-    <!-- end auth-page-wrapper -->
 
-    <!-- JAVASCRIPT -->
-    <script src="{{ asset('assets/template/libs/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-    <script src="{{ asset('assets/template/libs/simplebar/simplebar.min.js') }}"></script>
-    <script src="{{ asset('assets/template/libs/node-waves/waves.min.js') }}"></script>
-    <script src="{{ asset('assets/template/libs/feather-icons/feather.min.js') }}"></script>
-    <script src="{{ asset('assets/template/js/pages/plugins/lord-icon-2.1.0.js') }}"></script>
-    <script src="{{ asset('assets/template/js/plugins.js') }}"></script>
+    <script>
+        const toggleBtn = document.getElementById('toggleBtn');
+        const pwd = document.getElementById('password');
+        toggleBtn.addEventListener('click', () => {
+            const isPwd = pwd.type === 'password';
+            pwd.type = isPwd ? 'text' : 'password';
+            toggleBtn.textContent = isPwd ? 'ocultar' : 'mostrar';
+        });
+    </script>
 
-    <!-- particles js -->
-    <script src="{{ asset('assets/template/libs/particles.js/particles.js') }}"></script>
-    <!-- particles app js -->
-    <script src="{{ asset('assets/template/js/pages/particles.app.js') }}"></script>
-    <!-- password-addon init -->
-    <script src="{{ asset('assets/template/js/pages/password-addon.init.js') }}"></script>
 </body>
 
 </html>
