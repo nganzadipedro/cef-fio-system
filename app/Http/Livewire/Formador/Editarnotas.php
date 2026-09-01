@@ -20,9 +20,14 @@ class Editarnotas extends Component
     public $com_notas;
     public $sem_notas;
     public $professor;
+    public $prof_formacao;
     public $alunos;
     public $nota1;
+    public $nota1edit;
     public $nota2;
+    public $nota2edit;
+    public $alunoidedit;
+    public $observacao;
 
     public function mount($id_turma)
     {
@@ -33,9 +38,9 @@ class Editarnotas extends Component
     public function render()
     {
         $this->professor = Professor::where('pessoa_id', Auth::user()->pessoa_id)->first();
-        $pf = Professorformacao::where('professor_id', $this->professor->id)->where('turma_id', $this->turma_id)->first();
-        $this->disciplina_id = $pf->disciplina_id;
-        $this->formacao_id = $pf->formacao_id;
+        $this->prof_formacao = Professorformacao::where('professor_id', $this->professor->id)->where('turma_id', $this->turma_id)->first();
+        $this->disciplina_id = $this->prof_formacao->disciplina_id;
+        $this->formacao_id = $this->prof_formacao->formacao_id;
 
         $tem_alunos = Avaliacaoaluno::where('turma_id', $this->turma_id)
             ->where('disciplina_id', $this->disciplina_id)
@@ -68,7 +73,7 @@ class Editarnotas extends Component
         return view('dashboard.formador.editar-notas')->extends('layouts.app')->section('conteudo');
     }
 
-    
+
     public function jatemnota($aluno_id)
     {
 
@@ -92,10 +97,9 @@ class Editarnotas extends Component
             ->where('turma_id', $this->turma_id)
             ->where('aluno_id', $aluno_id)->first();
 
-        if($existe){
+        if ($existe) {
             return $existe;
-        }
-        else{
+        } else {
             $av = Avaliacaoaluno::create([
                 'turma_id' => $this->turma_id,
                 'disciplina_id' => $this->disciplina_id,

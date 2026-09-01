@@ -39,11 +39,6 @@
                     <div class="row">
                         <div class="col-xxl-12 align-self-center text-center">
                             <div class="py-4">
-                                <script src="https://cdn.lordicon.com/lordicon.js"></script>
-                                <lord-icon src="https://cdn.lordicon.com/abwrkdvl.json" trigger="loop" stroke="regular"
-                                    state="loop-all" colors="primary:#4030e8,secondary:#4030e8"
-                                    style="width:100px;height:100px">
-                                </lord-icon>
                                 <h5 class="display-6">CEFOnline | PAINEL DO FORMADOR</h5>
                                 <h4>Seja Bem-Vindo de volta, {{ Auth::user()->getpessoa->nome }}</h4>
                             </div>
@@ -102,107 +97,6 @@
                 </div> <!-- end row-->
             </div>
         </div> <!-- end col-->
-        <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12">
-            <div class="card">
-                <div class="card-header d-flex align-items-center">
-                    <h6 class="card-title flex-grow-1 mb-0">Informações CEF</h6>
-                    <!-- <a href="apps-nft-collections.html" type="button" class="btn btn-soft-primary btn-sm flex-shrink-0">
-                    See All <i class="ri-arrow-right-line align-bottom"></i>
-                </a> -->
-                </div>
-                <div class="card-body">
-                    <div class="swiper collection-slider">
-                        <div class="swiper-wrapper">
-                            <div class="swiper-slide">
-                                <div class="dash-collection overflow-hidden rounded-top position-relative">
-                                    <img src="{{ asset('assets/template/images/demos/banner-website.jpg') }}" alt=""
-                                        height="300" class="object-cover w-100" />
-                                    <div
-                                        class="content position-absolute bottom-0 m-2 p-2 start-0 end-0 rounded d-flex align-items-center">
-                                        <div class="flex-grow-1">
-                                            <a href="#!">
-                                                <h5 class="text-white fs-16 mb-1">Saiba +</h5>
-                                            </a>
-                                            <p class="text-white-75 mb-0">Ver detalhes</p>
-                                        </div>
-                                        <div class="avatar-xxs">
-                                            <div class="avatar-title bg-white rounded-circle">
-                                                <a href="#!" class="link-success"><i
-                                                        class="ri-arrow-right-line"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="dash-collection overflow-hidden rounded-top position-relative">
-                                    <img src="{{ asset('assets/template/images/demos/banner-website2.jpg') }}" alt=""
-                                        height="300" class="object-cover w-100" />
-                                    <div
-                                        class="content position-absolute bottom-0 m-2 p-2 start-0 end-0 rounded d-flex align-items-center">
-                                        <div class="flex-grow-1">
-                                            <a href="#!">
-                                                <h5 class="text-white fs-16 mb-1">Saiba +</h5>
-                                            </a>
-                                            <p class="text-white-75 mb-0">Ver detalhes</p>
-                                        </div>
-                                        <div class="avatar-xxs">
-                                            <div class="avatar-title bg-white rounded-circle">
-                                                <a href="#!" class="link-success"><i
-                                                        class="ri-arrow-right-line"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="dash-collection overflow-hidden rounded-top position-relative">
-                                    <img src="{{ asset('assets/template/images/demos/banner-website3.jpg') }}" alt=""
-                                        height="300" class="object-cover w-100" />
-                                    <div
-                                        class="content position-absolute bottom-0 m-2 p-2 start-0 end-0 rounded d-flex align-items-center">
-                                        <div class="flex-grow-1">
-                                            <a href="#!">
-                                                <h5 class="text-white fs-16 mb-1">Saiba +</h5>
-                                            </a>
-                                            <p class="text-white-75 mb-0">Ver detalhes</p>
-                                        </div>
-                                        <div class="avatar-xxs">
-                                            <div class="avatar-title bg-white rounded-circle">
-                                                <a href="#!" class="link-success"><i
-                                                        class="ri-arrow-right-line"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="dash-collection overflow-hidden rounded-top position-relative">
-                                    <img src="{{ asset('assets/template/images/demos/banner-website.jpg') }}" alt=""
-                                        height="300" class="object-cover w-100" />
-                                    <div
-                                        class="content position-absolute bottom-0 m-2 p-2 start-0 end-0 rounded d-flex align-items-center">
-                                        <div class="flex-grow-1">
-                                            <a href="#!">
-                                                <h5 class="text-white fs-16 mb-1">Saiba +</h5>
-                                            </a>
-                                            <p class="text-white-75 mb-0">Ver detalhes</p>
-                                        </div>
-                                        <div class="avatar-xxs">
-                                            <div class="avatar-title bg-white rounded-circle">
-                                                <a href="#!" class="link-success"><i
-                                                        class="ri-arrow-right-line"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!--end swiper-->
-                </div>
-            </div>
-        </div>
     </div> <!-- end row-->
 
 

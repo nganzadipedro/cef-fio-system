@@ -70,6 +70,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::post('/updateCandidatura', 'Controllers\CandidatoController@updateCandidatura')->name('updateCandidatura');
 
+    Route::post('updateNotas', 'Controllers\FormacaoController@atualizar_nota');
 
     Route::prefix('provas')->name('provas.')->group(function () {
         Route::get('/cadastrar', 'Livewire\Geral\Provas\Cadastrar')->name('cadastrar');

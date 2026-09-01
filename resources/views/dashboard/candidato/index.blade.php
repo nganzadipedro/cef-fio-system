@@ -12,6 +12,22 @@
     .hero-page .card {
         border-radius: 20px;
     }
+
+    .negativa {
+        display: inline-block;
+        background-color: #fff;
+        font-size: 16px;
+        color: #bd453aff;
+        border-radius: 5px;
+    }
+
+    .positiva {
+        display: inline-block;
+        background-color: #fff;
+        font-size: 16px;
+        color: #3a82bdff;
+        border-radius: 5px;
+    }
 </style>
 
 <div class="row hero-page">
@@ -21,11 +37,6 @@
                 <div class="row">
                     <div class="col-xxl-12 align-self-center text-center">
                         <div class="py-4">
-                            <script src="https://cdn.lordicon.com/lordicon.js"></script>
-                            <lord-icon src="https://cdn.lordicon.com/abwrkdvl.json" trigger="loop" stroke="regular"
-                                state="loop-all" colors="primary:#4030e8,secondary:#4030e8"
-                                style="width:100px;height:100px">
-                            </lord-icon>
                             <h5 class="display-6">CEFOnline | PAINEL DO FORMANDO</h5>
                             <h4>Bem-vindo de volta, {{ Auth::user()->getpessoa->nome }}</h4>
 
@@ -46,120 +57,201 @@
 
 <div class="row">
     <div class="col-xxl-6 col-md-6 col-sm-12 col-xs-12">
-        <div class="d-flex flex-column h-100">
-            <div class="row h-100">
+
+        @if($tem_aviso == true)
+            <div class="row">
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body p-0">
-                            <div class="alert alert-success border-0 rounded-0 m-0 d-flex align-items-center"
-                                role="alert">
-
+                            <div class="alert alert-danger border-0 rounded-0 m-0 d-flex align-items-center" role="alert">
                                 <div class="flex-grow-1 text-truncate">
-                                    Bem-vindo ao CEFOnline | Área de acesso rápido
-                                </div>
-
-                            </div>
-
-                            <div class="row align-items-end">
-                                <div class="col-sm-12">
-                                    <div class="p-3">
-                                        <p class="fs-16 lh-base">Clique nos botões que se seguem para ir à página que
-                                            desejas.
-                                        </p>
-                                        <div class="mt-3">
-                                            <a href="{{ route('candidato.minhasformacoes') }}"
-                                                class="btn btn-success mb-3">Acessar Formação</a>
-                                            <a href="{{ route('candidato.provas') }}" class="btn btn-primary mb-3">Provas
-                                                Online</a>
-                                            <a href="{{ route('perfil') }}" class="btn btn-primary mb-3">Actualização de Dados</a><br><br>
-                                        </div>
-                                    </div>
+                                    AVISOS / INCONFORMIDADES
                                 </div>
                             </div>
-                        </div> <!-- end card-body-->
-                    </div>
-                </div> <!-- end col-->
-            </div> <!-- end row-->
-        </div>
-    </div> <!-- end col-->
-    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-        <div class="card">
-            <div class="card-header d-flex align-items-center">
-                <h6 class="card-title flex-grow-1 mb-0">Informações CEF</h6>
-                <!-- <a href="apps-nft-collections.html" type="button" class="btn btn-soft-primary btn-sm flex-shrink-0">
-                    See All <i class="ri-arrow-right-line align-bottom"></i>
-                </a> -->
-            </div>
-            <div class="card-body">
-                <div class="swiper collection-slider">
-                    <div class="swiper-wrapper">
-                        <div class="swiper-slide">
-                            <div class="dash-collection position-relative">
-                                <img src="{{ asset('assets/template/images/demos/banner-website.jpg') }}" alt=""
-                                    width="100%" class="" />
-                                <!-- <div
-                                    class="content position-absolute bottom-0 m-2 p-2 start-0 end-0 rounded d-flex align-items-center">
-                                    <div class="flex-grow-1">
-                                        <a href="#!">
-                                            <h5 class="text-white fs-16 mb-1">Saiba +</h5>
-                                        </a>
-                                        <p class="text-white-75 mb-0">Ver detalhes</p>
-                                    </div>
-                                    <div class="avatar-xxs">
-                                        <div class="avatar-title bg-white rounded-circle">
-                                            <a href="#!" class="link-success"><i class="ri-arrow-right-line"></i></a>
-                                        </div>
-                                    </div>
-                                </div> -->
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="dash-collection position-relative">
-                                <img src="{{ asset('assets/template/images/demos/banner-website2.jpg') }}" alt=""
-                                    width="100%" class="" />
-                                <!-- <div
-                                    class="content position-absolute bottom-0 m-2 p-2 start-0 end-0 rounded d-flex align-items-center">
-                                    <div class="flex-grow-1">
-                                        <a href="#!">
-                                            <h5 class="text-white fs-16 mb-1">Saiba +</h5>
-                                        </a>
-                                        <p class="text-white-75 mb-0">Ver detalhes</p>
-                                    </div>
-                                    <div class="avatar-xxs">
-                                        <div class="avatar-title bg-white rounded-circle">
-                                            <a href="#!" class="link-success"><i class="ri-arrow-right-line"></i></a>
-                                        </div>
-                                    </div>
-                                </div> -->
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="dash-collection position-relative">
-                                <img src="{{ asset('assets/template/images/demos/banner-website3.jpg') }}" alt="" width="100%"
-                                    class="" />
-                                <!-- <div
-                                    class="content position-absolute bottom-0 m-2 p-2 start-0 end-0 rounded d-flex align-items-center">
-                                    <div class="flex-grow-1">
-                                        <a href="#!">
-                                            <h5 class="text-white fs-16 mb-1">Saiba +</h5>
-                                        </a>
-                                        <p class="text-white-75 mb-0">Ver detalhes</p>
-                                    </div>
-                                    <div class="avatar-xxs">
-                                        <div class="avatar-title bg-white rounded-circle">
-                                            <a href="#!" class="link-success"><i class="ri-arrow-right-line"></i></a>
-                                        </div>
-                                    </div>
-                                </div> -->
+                            <div class="p-3">
+                                <h6>
+                                    <ul style="font-size: 14px;">
+                                        @foreach ($avisos as $av)
+                                            @if($av != null)
+                                                <li>{{$av}}</li>
+                                            @endif
+                                        @endforeach
+                                    </ul>
+                                </h6>
                             </div>
                         </div>
                     </div>
                 </div>
-                <!--end swiper-->
+            </div>
+        @endif
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body p-0">
+                        <div class="alert alert-success border-0 rounded-0 m-0 d-flex align-items-center" role="alert">
+
+                            <div class="flex-grow-1 text-truncate">
+                                CEFOnline | Área de acesso rápido
+                            </div>
+
+                        </div>
+
+                        <div class="row align-items-end">
+                            <div class="col-sm-12">
+                                <div class="p-3">
+                                    <p class="fs-16 lh-base">Clique nos botões que se seguem para ir à página que
+                                        desejas.
+                                    </p>
+                                    <div class="mt-3">
+                                        <a href="{{ route('candidato.minhasformacoes') }}"
+                                            class="btn btn-success mb-3">Acessar Formação</a>
+                                        <a href="{{ route('candidato.provas') }}" class="btn btn-primary mb-3">Provas
+                                            Online</a>
+                                        <a href="{{ route('perfil') }}" class="btn btn-primary mb-3">Actualização de
+                                            Dados</a><br><br>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> <!-- end card-body-->
+                </div>
+            </div> <!-- end col-->
+        </div> <!-- end row-->
+    </div>
+
+    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+        <div class="card">
+            <div class="card-body p-0">
+                <div class="alert alert-primary border-0 rounded-0 m-0 d-flex align-items-center" role="alert">
+                    <div class="flex-grow-1 text-truncate">
+                        Avaliações do Formando
+                    </div>
+                </div>
+
+                <div class="row p-3 align-items-end">
+                    <div class="col-sm-12 col-12 col-md-12">
+
+                        @if($aluno != null && count($avaliacao_aluno) > 0)
+                            <!-- Notas -->
+                            <h6 class="mb-3">
+                                Classificações
+                            </h6>
+
+                            <div class="table-responsive">
+
+                                <table class="table table-bordered align-middle">
+
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th>Módulo</th>
+                                            <th style="width: 180px;">
+                                                Nota
+                                            </th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+
+                                        <tr>
+                                            <td>
+                                                Prática Processual Penal
+                                            </td>
+
+                                            <td>
+                                                <label>{{ $this->notas_finais[1] }}</label>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>
+                                                Prática Processual Civil
+                                            </td>
+
+                                            <td>
+                                                <label>{{ $this->notas_finais[2] }}</label>
+                                            </td>
+                                        </tr>
+
+
+                                        <tr>
+                                            <td>
+                                                Ética e Deontologia Profissional
+                                            </td>
+
+                                            <td>
+                                                <label>{{ $this->notas_finais[3] }}</label>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>
+                                                Práticas Jurídicas Multidisciplinares e Notariado
+                                            </td>
+
+                                            <td>
+                                                <label>{{ $this->notas_finais[4] }}</label>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>
+                                                Laboral
+                                            </td>
+                                            <td>
+                                                <label>{{ $this->notas_finais[5] }}</label>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>
+                                                Média Final do Formando
+                                            </td>
+                                            <td>
+                                                <label
+                                                    class="{{ $nota_final >= 10 ? 'positiva' : 'negativa' }}">{{ number_format($nota_final, 2, ',', '.') }}</label>
+                                            </td>
+                                        </tr>
+
+
+                                    </tbody>
+
+                                </table>
+                            </div>
+                        @else
+                            <div class="alert alert-warning text-center">
+                                Ainda não existem informações sobre as notas finais do Formando.
+                            </div>
+                        @endif
+
+                        <hr>
+                        <h6 class="mb-3 mt-3">
+                            Emitir Declaração Final
+                        </h6>
+
+                        @if((count($avaliacao_aluno) >= 5 && $tem_aviso == false && $nota_final >= 9.5 && $aluno != null && $aluno_formacao->turma_id < 13))
+                            <label for="" class="mt-3 mb-3">Antes de Emitir a declaração, tenha a certeza que os seus dados
+                                estão
+                                correctamente actualizados.</label>
+                            <a target="_blank" href="{{ route('emitirdec', [$candidatura->hash, $aluno->hash]) }}"
+                                class="btn btn-success text-center">Clique aqui para emitir a sua declaração</a>
+                        @else
+                            @if($tem_aviso == true)
+                                Caríssimo(a) Formando(a), verifique as inconformidades.
+                            @endif
+                            @if(count($avaliacao_aluno) < 5)
+                                Caríssimo(a) Formando(a), não tem todas as notas inseridas na plataforma.
+                            @endif
+                            @if(count($avaliacao_aluno) >= 5 && $nota_final < 9.5)
+                                Caríssimo(a) Formando(a), a sua classificação final não permite emitir a declaração.
+                            @endif
+                        @endif
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-</div> <!-- end row-->
+</div>
 
 @section('script-aux')
     <!-- apexcharts -->

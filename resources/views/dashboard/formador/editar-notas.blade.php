@@ -160,9 +160,14 @@
         </div>
         <div class="live-preview">
 
+        <div class="card">
+ <div class="card-body">
+
+       
+
             <div style="height: 500px; overflow: auto;">
                 <div class="table-responsive mt-4 mt-xl-0">
-                    <table class="table table-info table-striped table-nowrap align-middle mb-0" id="myTab">
+                    <table class="table table-info table-striped table-nowrap align-middle mb-0" id="myTable">
                         <thead>
                             <tr class="text-center">
                                 <th scope="col">#</th>
@@ -192,14 +197,21 @@
 
                                         @endphp
 
-                                        <td scope="col"><input min="0" max="20" value="{{ $av_nota1 }}" type="number"
-                                                class="form-control">
+                                        <td scope="col"><input min="0" disabled step="0.01" max="20" value="{{ $av_nota1 }}"
+                                                type="number" class="form-control">
                                         </td>
-                                        <td scope="col"><input min="0" max="20" value="{{ $av_nota2 }}" type="number"
-                                                class="form-control">
+                                        <td scope="col"><input min="0" disabled step="0.01" max="20" value="{{ $av_nota2 }}"
+                                                type="number" class="form-control">
                                         </td>
-                                        <td scope="col"><a wire:click="lancar({{$item->aluno_id}})"
-                                                class="btn btn-success">Salvar</a>
+                                        <td scope="col">
+                                            <button type="button" data-aluno-id="{{ $item->aluno_id }}"
+                                                data-codigo="{{ $item->getAluno->codigo }}"
+                                                data-nome="{{ $item->getAluno->getPessoa->nome }}" 
+                                                data-nota1="{{ $av_nota1 }}" data-nota2="{{ $av_nota2 }}"
+                                                class="btn-edit btn btn-primary" data-bs-toggle="modal"
+                                                data-bs-target="#modalEditarNotas">
+                                                <i class="ri-edit-box-line"></i>
+                                            </button>
                                         </td>
 
                                     </tr>
@@ -211,6 +223,135 @@
                 </div>
             </div>
         </div>
+         </div>
+        </div>
+    </div>
+
+
+    <!-- Modal -->
+    <div class="modal fade" data-bs-backdrop="static"
+     data-bs-keyboard="false" id="modalEditarNotas" tabindex="-1" aria-labelledby="modalEditarNotasLabel"
+        aria-hidden="true">
+
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+
+            <div class="modal-content">
+
+                <!-- Cabeçalho -->
+                <div class="modal-header">
+                    <div>
+                        <h5 class="modal-title" id="modalEditarNotasLabel">
+                            Editar Notas do Formando
+                        </h5>
+
+                        <small class="text-muted">
+                            Atualização das classificações
+                        </small>
+                    </div>
+
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar">
+                    </button>
+                </div>
+
+
+                <!-- Corpo -->
+                <div class="modal-body">
+
+                    <!-- Dados do formando -->
+                    <div class="row mb-4">
+
+                        <div class="col-md-8">
+                            <label class="form-label">
+                                Nome do Formando
+                            </label>
+
+                            <input type="text" disabled class="form-control" id="nome_formando" value="João Manuel"
+                                readonly>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label class="form-label">
+                                Código do Formando
+                            </label>
+
+                            <input type="text" disabled class="form-control" id="numero_processo" value="2026/001"
+                                readonly>
+                        </div>
+
+                    </div>
+
+
+                    <!-- Notas -->
+                    <h6 class="mb-3">
+                        Classificações
+                    </h6>
+
+                    @csrf
+
+                    <div class="table-responsive">
+
+                        <table class="table table-bordered align-middle">
+
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Módulo</th>
+                                    <th style="width: 180px;">
+                                        Nota 1
+                                    </th>
+                                    <th style="width: 180px;">
+                                        Nota 2
+                                    </th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+
+                                <tr>
+                                    <td>
+                                       {{ $this->prof_formacao->getDisciplina->descricao }}
+                                       <input type="hidden" class="form-control" name="idalunoedit"
+                                            value="" id="idalunoedit">
+                                            <input type="hidden" class="form-control" name="turmaid"
+                                            value="{{ $this->prof_formacao->turma_id }}" id="turmaid">
+                                    </td>
+
+                                    <td>
+                                        <input type="number" class="form-control"
+                                            value="" min="0" id="nota1edit" max="20" step="0.01">
+                                    </td>
+                                    <td>
+                                        <input type="number" class="form-control"
+                                            value="" min="0" id="nota2edit" max="20" step="0.01">
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+
+                    <!-- Observação -->
+                    <div class="mt-3">
+
+                        <label class="form-label">
+                            Justificação
+                        </label>
+
+                        <textarea class="form-control" name="observacao" id="observacao" rows="3"
+                            placeholder="Digite uma observação..."></textarea>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Rodapé -->
+                <div class="modal-footer">
+                    <a class="btn btn-success" id="btnSalvarAlteracoes">Guardar Alterações</a>
+                </div>
+
+            </div>
+
+        </div>
     </div>
 </div>
 
@@ -219,5 +360,9 @@
         $(document).ready(function () {
             $('#myTable').DataTable();
         });
+
+      
+
     </script>
+    <script src="{{ asset('assets/system/js/editar-notas.js') }}"></script>
 @endsection

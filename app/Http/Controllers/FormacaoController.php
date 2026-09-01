@@ -10,9 +10,12 @@ use App\Models\Fio\Candidaturaformacao;
 use App\Models\Fio\Disciplina;
 use App\Models\Fio\Emissaodeclaracao;
 use App\Models\Fio\Historicodeclaracao;
+use App\Models\Fio\Historiconotas;
 use App\Models\Fio\Perguntaprova;
 use App\Models\Fio\Professor;
+use App\Models\Fio\Professorformacao;
 use App\Models\Fio\Prova;
+use App\Models\Fio\Sistemaavaliacao;
 use App\Models\Fio\Turma;
 use DB;
 use Carbon\Carbon;
@@ -809,6 +812,130 @@ class FormacaoController extends Controller
                 $linha->save();
             }
         }
+
+    }
+
+    public function atualizar_nota(Request $request)
+    {
+
+        if (Auth::user()->permission_id != 1 && Auth::user()->permission_id != 6) {
+            return response()->json(['status' => 'erro', 'mensagem' => 'Não tem permissão para alterar notas!']);
+        }
+
+        $professor = Professor::where('pessoa_id', Auth::user()->pessoa_id)->first();
+        $prof_formacao = Professorformacao::where('professor_id', $professor->id)->where('turma_id', $request->turmaid)->first();
+        $disciplina_id = $prof_formacao->disciplina_id;
+
+        $av = Avaliacaoaluno::where('aluno_id', $request->idaluno)
+            ->where('turma_id', $request->turmaid)
+            ->where('disciplina_id', $disciplina_id)->first();
+
+        $old_nota1 = $av->nota1;
+        $old_nota2 = $av->nota2;
+        $oldnotafinal = $av->notafinal;
+
+        // verifica se tem configuração de notas para a disciplina
+        $existe = Sistemaavaliacao::where('disciplina_id', $disciplina_id)
+            ->where('turma_id', $request->turmaid)
+            ->where('professor_id', $professor->id)
+            ->first();
+
+        $nota1 = $request->nota1edit;
+        $nota2 = $request->nota2edit;
+
+        if ($existe) {
+
+            if ($existe->qtd_notas_lancar == 1) {
+                $av->nota1 = $request->nota1edit;
+                $av->notafinal = $request->nota1edit;
+                $av->save();
+            } else if ($existe->qtd_notas_lancar == 2) {
+                if ($existe->criterio_resultado_final == 'soma') {
+
+                    $av->nota1 = $nota1;
+                    $av->nota2 = $nota2;
+                    $av->notafinal = ($nota1 + $nota2);
+                    if (($nota1 + $nota2) > 20) {
+                        return response()->json(['status' => 'erro', 'mensagem' => 'O resultado final não pode exceder 20!']);
+                    }
+                    $av->save();
+
+                } else if ($existe->criterio_resultado_final == 'media') {
+                    $av->nota1 = $nota1;
+                    $av->nota2 = $nota2;
+                    $av->notafinal = ($nota1 + $nota2) / 2;
+                    if (($nota1 + $nota2) / 2 > 20) {
+                        return response()->json(['status' => 'erro', 'mensagem' => 'O resultado final não pode exceder 20!']);
+                    }
+                    $av->save();
+                } else {
+
+                    $nota1 = $nota1 * ($existe->percent_nota1 / 100);
+                    $nota2 = $nota2 * ($existe->percent_nota2 / 100);
+
+                    $av->nota1 = $nota1;
+                    $av->nota2 = $nota2;
+                    $av->notafinal = ($nota1 + $nota2);
+                    if (($nota1 + $nota2) > 20) {
+                        return response()->json(['status' => 'erro', 'mensagem' => 'O resultado final não pode exceder 20!']);
+                    }
+                    $av->save();
+                }
+
+            }
+
+        } else {
+            // customização para multidisciplinares 
+            if ($disciplina_id == 4) {
+
+                $av->nota1 = $nota1;
+                $av->nota2 = $nota2;
+                $av->notafinal = ($nota1 + $nota2);
+                if (($nota1 + $nota2) > 20) {
+                    return response()->json(['status' => 'erro', 'mensagem' => 'O resultado final não pode exceder 20!']);
+                }
+                $av->save();
+
+                // customização para processo civil
+            } else if ($disciplina_id == 2) {
+
+                $res = ($nota1) + ($nota2 * 0.45);
+                if ($res > 20) {
+                    return response()->json(['status' => 'erro', 'mensagem' => 'O resultado final não pode exceder 20!']);
+                }
+
+                $av->nota1 = $nota1;
+                $av->nota2 = $nota2;
+                $av->notafinal = $res;
+                $av->save();
+
+            } else {
+                $av->nota1 = $nota1;
+                $av->nota2 = $nota2;
+                $av->notafinal = ($nota1 + $nota2) / 2;
+                if (($nota1 + $nota2) / 2 > 20) {
+                    return response()->json(['status' => 'erro', 'mensagem' => 'O resultado final não pode exceder 20!']);
+                }
+                $av->save();
+            }
+        }
+
+        $hist = Historiconotas::create([
+            'aluno_id' => $request->idaluno,
+            'turma_id' => $request->turmaid,
+            'professor_id' => $professor->id,
+            'disciplina_id' => $disciplina_id,
+            'user_id' => Auth::id(),
+            'oldnota1' => $old_nota1,
+            'oldnota2' => $old_nota2,
+            'oldnotafinal' => $oldnotafinal,
+            'newnota1' => $av->nota1,
+            'newnota2' => $av->nota2,
+            'newnotafinal' => $av->notafinal,
+            'observacao' => $request->observacao
+        ]);
+
+        return response()->json(['status' => 'sucesso', 'mensagem' => 'Nota atualizada com sucesso!']);
 
     }
 

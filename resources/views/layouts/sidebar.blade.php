@@ -114,7 +114,7 @@
                     <li class="nav-item">
                         <a class="nav-link menu-link" href="#sidebarAuth" data-bs-toggle="collapse" role="button"
                             aria-expanded="false" aria-controls="sidebarAuth">
-                            <i class="ri-file-settings-line"></i> <span data-key="t-authentication">Sistemas de Avaliação</span>
+                            <i class="ri-file-settings-line"></i> <span data-key="t-authentication">Modalidades de Avaliação</span>
                         </a>    
                         <div class="collapse menu-dropdown" id="sidebarAuth">
                             <ul class="nav nav-sm flex-column">
