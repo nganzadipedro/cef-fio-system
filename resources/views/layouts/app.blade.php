@@ -81,6 +81,7 @@
                             <script>
                                 document.write(new Date().getFullYear())
                             </script> © CEF-OAA.
+                            <label for="">[PID: {{ Auth::user()->getpessoa->id }}] | [UID: {{ Auth::user()->id }}]</label>
                         </div>
                         <div class="col-sm-6">
                             <div class="text-sm-end d-none d-sm-block">

@@ -93,6 +93,9 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/actualizar-dados/{aluno_hash}', 'Controllers\UserController@actualizar')->name('actualizar');
     });
 
+    Route::get('/lancar-notas/{id_turma}', 'Livewire\Formador\Lancarnotas')->name('lancarnota');
+    Route::get('/editar-notas/{id_turma}', 'Livewire\Formador\Editarnotas')->name('editarnota');
+
 
     Route::group(['middleware' => 'admin'], function () {
         Route::prefix('painel-admin')->name('admin.')->group(function () {
@@ -170,6 +173,7 @@ Route::group(['middleware' => 'auth'], function () {
             Route::get('/dashboard', 'Livewire\Candidato\Dashboard')->name('dashboard');
             Route::get('/minhas-formacoes', 'Livewire\Candidato\Candidaturas')->name('minhasformacoes');
             Route::get('/provas', 'Livewire\Candidato\Provas')->name('provas');
+            Route::get('/notas-finais', 'Livewire\Candidato\Notasfinais')->name('notasfinais');
             Route::get('/realizacao-prova/{hash}/{hash2}', 'Livewire\Candidato\Fazerprova')->name('fazerprova');
             Route::get('/editar-candidatura/{hash}', 'Controllers\PainelCandidatoController@getFormularioEditar')->name('editarcandidatura');
             Route::post('/updateCandidatura', 'Controllers\CandidatoController@updateCandidatura')->name('updateCandidatura');

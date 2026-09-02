@@ -53,7 +53,7 @@
     <!--end col-->
 
     <div class="row">
-        <div class="col-xxl-5">
+        <div class="col-xxl-12">
             <div class="d-flex flex-column h-100">
                 <div class="row h-100">
                     <div class="col-12">
@@ -69,12 +69,13 @@
                                 </div>
 
                                 <div class="row align-items-end">
-                                    <div class="col-sm-12 col-lg-12 col-xs-12 col-md-12">
-                                        <div class="p-3 text-center">
+                                    @foreach ($turmas as $item)
+                                        @if ($item->getTurma->ativo == 'sim')
+                                            <div class="col-sm-12 col-lg-3 col-xs-12 col-md-3">
+                                                <div class="p-3 text-center">
 
-                                            <div class="mt-4">
-                                                @foreach ($turmas as $item)
-                                                    @if ($item->getTurma->ativo == 'sim')
+                                                    <div class="mt-4">
+
                                                         <div class="item-turma mb-2">
 
                                                             <h3>{{ $item->getFormacao->nome }}</h3>
@@ -85,11 +86,12 @@
                                                             <a href="{{ route('formador.verturma', $item->getTurma->id) }}"
                                                                 class="btn btn-primary">Gerenciar Turma</a>
                                                         </div>
-                                                    @endif
-                                                @endforeach
+
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </div>
+                                        @endif
+                                    @endforeach
                                 </div>
                             </div> <!-- end card-body-->
                         </div>

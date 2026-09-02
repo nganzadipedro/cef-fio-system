@@ -40,9 +40,12 @@
                             <h5 class="display-6">CEFOnline | PAINEL DO FORMANDO</h5>
                             <h4>Bem-vindo de volta, {{ Auth::user()->getpessoa->nome }}</h4>
 
-                            <div class="text-center">
+                            @if ($aluno != null)
+                                <div class="text-center">
+                                    Código do(a) Formando(a): {{ $aluno->codigo }}
+                                </div>
+                            @endif
 
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -229,7 +232,7 @@
                             Emitir Declaração Final
                         </h6>
 
-                        @if((count($avaliacao_aluno) >= 5 && $tem_aviso == false && $nota_final >= 9.5 && $aluno != null && $aluno_formacao->turma_id < 13))
+                        @if((count($avaliacao_aluno) >= 5 && $pessoa->id != 6173 && $tem_aviso == false && $nota_final >= 9.5 && $aluno != null && $aluno_formacao->turma_id < 13))
                             <label for="" class="mt-3 mb-3">Antes de Emitir a declaração, tenha a certeza que os seus dados
                                 estão
                                 correctamente actualizados.</label>

@@ -38,7 +38,7 @@
                     <li class="nav-item">
                         <a class="nav-link menu-link" href="#sidebarDashboards" data-bs-toggle="collapse" role="button"
                             aria-expanded="false" aria-controls="sidebarDashboards">
-                            <i class="ri-dashboard-2-line"></i> <span data-key="t-dashboards">Início</span>
+                            <i class="ri-dashboard-line"></i> <span data-key="t-dashboards">Início</span>
                         </a>
                         <div class="collapse menu-dropdown" id="sidebarDashboards">
                             <ul class="nav nav-sm flex-column">
@@ -52,7 +52,7 @@
                     <li class="nav-item">
                         <a class="nav-link menu-link" href="#sidebarLayouts" data-bs-toggle="collapse" role="button"
                             aria-expanded="false" aria-controls="sidebarLayouts">
-                            <i class="ri-layout-3-line"></i> <span data-key="t-layouts">Formação</span> <span
+                            <i class="ri-book-read-line"></i> <span data-key="t-layouts">Formação</span> <span
                                 class="badge badge-pill bg-danger" data-key="t-hot">Hot</span>
                         </a>
                         <div class="collapse menu-dropdown" id="sidebarLayouts">
@@ -67,12 +67,27 @@
                                 </li>
                             </ul>
                         </div>
-                    </li> <!-- end Dashboard Menu -->
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link menu-link" href="#sidebarLayouts" data-bs-toggle="collapse" role="button"
+                            aria-expanded="false" aria-controls="sidebarLayouts">
+                            <i class="ri-numbers-line"></i> <span data-key="t-layouts">Avaliação</span> <span
+                                class="badge badge-pill bg-danger" data-key="t-hot">Hot</span>
+                        </a>
+                        <div class="collapse menu-dropdown" id="sidebarLayouts">
+                            <ul class="nav nav-sm flex-column">
+                                <li class="nav-item">
+                                    <a href="{{ route('candidato.notasfinais') }}" class="nav-link"
+                                        data-key="t-horizontal">Notas Finais</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
 
                 </ul>
             @endif
 
-             {{-- menu para o formador --}}
+            {{-- menu para o formador --}}
             @if (Auth::user()->permission_id == 6)
                 <ul class="navbar-nav" id="navbar-nav">
                     <li class="menu-title"><span data-key="t-menu">Menu</span></li>
@@ -104,8 +119,8 @@
                                         data-key="t-horizontal">Cadastrar prova</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{ route('provas.listar') }}" class="nav-link"
-                                        data-key="t-horizontal">Listar provas</a>
+                                    <a href="{{ route('provas.listar') }}" class="nav-link" data-key="t-horizontal">Listar
+                                        provas</a>
                                 </li>
 
                             </ul>
@@ -114,8 +129,9 @@
                     <li class="nav-item">
                         <a class="nav-link menu-link" href="#sidebarAuth" data-bs-toggle="collapse" role="button"
                             aria-expanded="false" aria-controls="sidebarAuth">
-                            <i class="ri-file-settings-line"></i> <span data-key="t-authentication">Modalidades de Avaliação</span>
-                        </a>    
+                            <i class="ri-file-settings-line"></i> <span data-key="t-authentication">Modalidades de
+                                Avaliação</span>
+                        </a>
                         <div class="collapse menu-dropdown" id="sidebarAuth">
                             <ul class="nav nav-sm flex-column">
                                 <li class="nav-item">
@@ -231,15 +247,15 @@
                         <div class="collapse menu-dropdown" id="sidebarLanding">
                             <ul class="nav nav-sm flex-column">
                                 <!-- <li class="nav-item">
-                                    <a href="{{ route('revisor.usuarios.cadastrar') }}" class="nav-link"
-                                        data-key="t-one-page"> Cadastrar
-                                    </a>
-                                </li> -->
-                                <!-- <li class="nav-item">
-                                        <a href="{{ route('revisor.usuarios.listar') }}" class="nav-link"
-                                            data-key="t-one-page"> Listar Funcionários
+                                        <a href="{{ route('revisor.usuarios.cadastrar') }}" class="nav-link"
+                                            data-key="t-one-page"> Cadastrar
                                         </a>
                                     </li> -->
+                                <!-- <li class="nav-item">
+                                            <a href="{{ route('revisor.usuarios.listar') }}" class="nav-link"
+                                                data-key="t-one-page"> Listar Funcionários
+                                            </a>
+                                        </li> -->
                                 <li class="nav-item">
                                     <a href="{{ route('revisor.usuarios.candidatos') }}" class="nav-link"
                                         data-key="t-one-page"> Listar Candidatos
@@ -281,9 +297,9 @@
                         <div class="collapse menu-dropdown" id="sidebarAuth">
                             <ul class="nav nav-sm flex-column">
                                 <!-- <li class="nav-item">
-                                        <a href="{{ route('avaliador.formandos.listar') }}" class="nav-link"
-                                            data-key="t-horizontal">Listar formandos</a>
-                                    </li> -->
+                                            <a href="{{ route('avaliador.formandos.listar') }}" class="nav-link"
+                                                data-key="t-horizontal">Listar formandos</a>
+                                        </li> -->
                                 <li class="nav-item">
                                     <a href="{{ route('avaliador.formandos.declaracoes') }}" class="nav-link"
                                         data-key="t-horizontal">Declarações emitidas</a>
@@ -467,7 +483,7 @@
                                     <a href="{{ route('admin.formandos.turmas') }}" class="nav-link"
                                         data-key="t-horizontal">Turmas</a>
                                 </li>
-                                     <li class="nav-item">
+                                <li class="nav-item">
                                     <a href="{{ route('admin.formandos.declaracoes') }}" class="nav-link"
                                         data-key="t-horizontal">Declarações emitidas</a>
                                 </li>

@@ -18,6 +18,7 @@ class Lancarnotas extends Component
     public $disciplina_id;
     public $turma;
     public $com_notas;
+    public $alunos_turma;
     public $sem_notas;
     public $professor;
     public $alunos;

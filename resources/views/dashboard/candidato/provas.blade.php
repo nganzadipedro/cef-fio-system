@@ -109,7 +109,7 @@
                 Caro candidato, tenha em atenção que as provas apresentadas nesta secção, são aquelas que foram ou serão
                 realizadas online pela plataforma do
                 CEF-OAA. Qualquer prova que não foi realizada por meio desta plataforma, não estará visível nesta secção.
-                Para visualizares as notas de todas as provas, clique <a href="{{ route('vercandidatura', $candidatura->hash) }}">neste link</a> e aceda ao item "Notas Finais".
+                Para visualizares as notas de todas as provas, clique <a href="{{ route('candidato.notasfinais') }}">neste link</a>.
             </p>
         </div>
 

@@ -196,7 +196,7 @@
                                                 $av_nota1 = $avaliacao->nota1 == null ? 0 : $avaliacao->nota1;
 
                                                 // $this->nota1 = $av_nota1;
-                                                $this->nota2 = $av_nota2;
+                                                // $this->nota2 = $av_nota2;
 
                                                 $vez++;
 
@@ -205,7 +205,7 @@
                                             <td scope="col"><input min="0" max="20" value="{{ $av_nota1 }}" type="number"
                                                     wire:model="nota1" class="form-control">
                                             </td>
-                                            <td scope="col"><input min="0" max="20" value="{{ $av_nota2 }}" disabled type="number"
+                                            <td scope="col"><input min="0" max="20" value="{{ $av_nota2 }}" type="number"
                                                     wire:model="nota2" class="form-control">
                                             </td>
                                             <td scope="col"><a wire:click="lancar({{$item->aluno_id}})"

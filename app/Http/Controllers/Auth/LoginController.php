@@ -86,7 +86,7 @@ class LoginController extends Controller
             ])->first();
 
             if ($user) {
-                if ($user->permission_id == 1 || $user->permission_id == 6 || $user->permission_id == 9) {
+                if ($user->permission_id == 1 || $user->permission_id == 6 || $user->permission_id == 10 || $user->permission_id == 2) {
                     Auth::login($user);
                     // regista actividade do sistema
                     ActividadesistemaController::inserir($user->id, 'Acessou o sistema', 'Usuário', 'conta', null);

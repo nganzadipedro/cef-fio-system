@@ -73,6 +73,9 @@
                     </thead>
                     <tbody>
                         @foreach ($formandos as $item)
+
+
+
                             <tr>
                                 <td scope="col">{{ $loop->index + 1 }}</td>
                                 <td scope="col">{{ $item->aluno_id }}</td>
@@ -91,8 +94,6 @@
                                             title="Actualizar"><i class="ri-pencil-fill "></i></a>
                                     </td>
                                 @endif
-
-
                             </tr>
                         @endforeach
 

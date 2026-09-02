@@ -19,6 +19,7 @@ class Editarnotas extends Component
     public $turma;
     public $com_notas;
     public $sem_notas;
+    public $alunos_turma;
     public $professor;
     public $prof_formacao;
     public $alunos;

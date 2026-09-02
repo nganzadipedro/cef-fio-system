@@ -59,9 +59,9 @@ class Vercandidatura extends Component
             $this->candidatura = Candidaturaformacao::where('hash', $hash)->first();
         }
 
-         // dd($this->candidatura);
+        // dd($this->candidatura);
 
-         // --- IGNORE ---
+        // --- IGNORE ---
 
         if ($this->candidatura) {
             $this->historico = Actividadesistema::where('destino', 'candidatura')
@@ -111,7 +111,7 @@ class Vercandidatura extends Component
                 if ($this->quant_discip > 0) {
 
                     $this->nota_final = $this->nota_final / $this->quant_discip;
-                    if($this->nota_final < 10 && $this->nota_final >= 9.5){
+                    if ($this->nota_final < 10 && $this->nota_final >= 9.5) {
                         $this->nota_final = 10;
                     }
 
@@ -194,9 +194,12 @@ class Vercandidatura extends Component
             }
         }
 
-
         $this->motivos = Motivo::all();
         $this->ano = Ano::where('estado', 'Activo')->first();
+
+        if (Auth::user()->permission_id == 5) {
+            return view('dashboard.candidato.ver-candidatura')->extends('layouts.app')->section('conteudo');
+        }
         return view('dashboard.candidaturas.ver-candidatura')->extends('layouts.app')->section('conteudo');
 
     }
